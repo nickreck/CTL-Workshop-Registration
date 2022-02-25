@@ -9,4 +9,8 @@ public class MasterController {
     public String viewHomePage() {
         return "index";
     }
+    @GetMapping("/admin")
+    public String viewAdminPage() {
+        return "admin";
+    }
 }
