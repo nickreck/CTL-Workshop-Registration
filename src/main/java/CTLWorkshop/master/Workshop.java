@@ -3,21 +3,20 @@ package CTLWorkshop.master;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "workshops")
+@Table(name = "workshop")
 public class Workshop
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false)
     private String id;
     @Column(nullable = false)
-    private String workShopName;
+    private String workshopdate;
     @Column(nullable = false)
-    private String workShopDate;
+    private String workshoptime;
     @Column(nullable = false)
-    private String workShopTime;
-    @Column(nullable = false)
-    private String workShopLocation;
+    private String workshoplocation;
 }
