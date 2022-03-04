@@ -41,30 +41,35 @@ div
 <h3>Event Registration Form</h3>
 
 <div>
-    <form>
+    <form th:action="@{/registrationsubmitted}" method="post"
+          th:object="${attendee}">
         <label for="workShopName">First Name</label>
-        <input type="text" id="workShopName" name="workShopName" placeholder="First Name">
+        <input type="text" id="workShopName" name="workShopName" placeholder="First Name" th:field="*{firstname}">
 
         <label for="workShopDate">Last Name</label>
         <br>
-        <input type="text" id="workShopDate" name="workShopDate" placeholder="Last Name">
+        <input type="text" id="workShopDate" name="workShopDate" placeholder="Last Name" th:field="*{lastname}">
         <br>
         <br>
 
         <label for="workshopTime">Email</label>
         <br>
-        <input type="text" id="workshopTime" name="workshopTime" placeholder="Email">
+        <input type="text" id="workshopTime" name="workshopTime" placeholder="Email" th:field="*{id}">
         <br>
         <label for="workshopLocation">College</label>
 
-        <input type="text" id="workshopLocation" name="workshopLocation" placeholder="College">
+        <input type="text" id="workshopLocation" name="workshopLocation" placeholder="College" th:field="*{college}">
         <label for="workshopTime">Department</label>
         <br>
-        <input type="text" id="email" name="workshopTime" placeholder="Department">
+        <input type="text" id="email" name="workshopTime" placeholder="Department" th:field="*{department}">
         <br>
         <label for="workshopTime">Position</label>
         <br>
-        <input type="text" id="College" name="workshopTime" placeholder="Position">
+        <input type="text" id="College" name="workshopTime" placeholder="Position" th:field="*{position}">
+        <br>
+        <label path="phonenumber">Phone Number</label>
+        <input name="workShopName" path="phonenumber" placeholder="Enter Phone Number.." th:field="*{phonenumber}"
+               type="text">
         <br>
         <input type="submit" value="Submit">
     </form>

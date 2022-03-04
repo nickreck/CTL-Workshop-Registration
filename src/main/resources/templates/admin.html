@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 <style>
 input[type=text], select
 {
@@ -41,24 +41,24 @@ div
 <h3>Event Registration Form</h3>
 
 <div>
-    <form th:action="@{/process_register}" method="post"
-            th:object="${user}">
-        <label for="workShopName">Workshop Name</label>
-        <input type="text" id="workShopName" name="workShopName" placeholder="Enter Workshop Name.." th:field="*{workShopName}">
+    <form th:action="@{/adminsubmitted}" th:object="${workshop}" method="post">
+        <label path="id">Workshop Name</label>
+        <input name="workShopName" path="id" placeholder="Enter Workshop Name.." th:field="*{id}"
+               type="text">
 
-        <label for="workShopDate">Workshop Date</label>
+        <label path="workshopdate">Workshop Date</label>
         <br>
-        <input type="date" id="workShopDate" name="workShopDate" placeholder="Enter Workshop Date.." th:field="*{workShopDate}">
+        <input name="workShopDate" path="workshopdate" placeholder="Enter Workshop Date.." th:field="*{workshopdate}" type="date">
         <br>
         <br>
 
-        <label for="workshopTime">Workshop Time</label>
+        <label path="workshoptime">Workshop Time</label>
         <br>
-        <input type="text" id="workshopTime" name="workshopTime" placeholder="Enter Workshop Time.." th:field="*{workShopTime}">
+        <input type="text" path="workshoptime" name="workshopTime" placeholder="Enter Workshop Time.." th:field="*{workshoptime}">
         <br>
-        <label for="workshopTime">Workshop Location</label>
+        <label path="workshoplocation">Workshop Location</label>
 
-        <input type="text" id="workshopLocation" name="workshopLocation" placeholder="Enter Workshop Location.." th:field="*{workShopLocation}">
+        <input type="text" path="workshoplocation" name="workshopLocation" placeholder="Enter Workshop Location.." th:field="*{workshoplocation}">
 
         <input type="submit" value="Submit">
     </form>

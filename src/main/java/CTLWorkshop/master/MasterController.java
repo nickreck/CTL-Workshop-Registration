@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.*;
 public class MasterController {
     @Autowired
     private WorkshopRepository workshopRepo;
+    @Autowired
     private AttendeeRepository attendeeRepo;
-    @GetMapping("")
+    @GetMapping("/registration")
     public String viewHomePage(Model model) {
         model.addAttribute("attendee", new Attendee());
         return "registration";
