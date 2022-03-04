@@ -9,10 +9,16 @@ import org.springframework.web.bind.annotation.*;
 public class MasterController {
     @Autowired
     private WorkshopRepository workshopRepo;
+    private AttendeeRepository attendeeRepo;
     @GetMapping("")
     public String viewHomePage(Model model) {
         model.addAttribute("attendee", new Attendee());
-        return "index";
+        return "registration";
+    }
+    @PostMapping("/registrationsubmitted")
+    public String viewSubmittedRegistrationPage(@ModelAttribute("attendee") Attendee attendee) {
+        attendeeRepo.save(attendee);
+        return "registration_submitted";
     }
     @GetMapping("/admin")
     public String viewAdminPage(Model model) {
