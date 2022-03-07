@@ -28,4 +28,6 @@ public class Attendee
     private String workshopname;
     @Column(nullable = false)
     private String workshopdate;
+    @Column(nullable = false)
+    private String workshopnum;
 }
