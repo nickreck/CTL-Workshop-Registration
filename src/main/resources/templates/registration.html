@@ -43,32 +43,32 @@ div
 <div>
     <form th:action="@{/registrationsubmitted}" method="post"
           th:object="${attendee}">
-        <label for="workShopName">First Name</label>
-        <input type="text" id="workShopName" name="workShopName" placeholder="First Name" th:field="*{firstname}">
+        <label for="firstname">First Name</label>
+        <input type="text" id="firstname" name="firstname" placeholder="First Name" th:field="*{firstname}">
 
-        <label for="workShopDate">Last Name</label>
+        <label for="lastname">Last Name</label>
         <br>
-        <input type="text" id="workShopDate" name="workShopDate" placeholder="Last Name" th:field="*{lastname}">
+        <input type="text" id="lastname" name="lastname" placeholder="Last Name" th:field="*{lastname}">
         <br>
         <br>
 
-        <label for="workshopTime">Email</label>
+        <label for="email">Email</label>
         <br>
-        <input type="text" id="workshopTime" name="workshopTime" placeholder="Email" th:field="*{id}">
+        <input type="text" id="email" name="email" placeholder="Email" th:field="*{id}">
         <br>
-        <label for="workshopLocation">College</label>
+        <label for="college">College</label>
 
-        <input type="text" id="workshopLocation" name="workshopLocation" placeholder="College" th:field="*{college}">
-        <label for="workshopTime">Department</label>
+        <input type="text" id="college" name="college" placeholder="College" th:field="*{college}">
+        <label for="department">Department</label>
         <br>
-        <input type="text" id="email" name="workshopTime" placeholder="Department" th:field="*{department}">
+        <input type="text" id="department" name="department" placeholder="Department" th:field="*{department}">
         <br>
-        <label for="workshopTime">Position</label>
+        <label for="position">Position</label>
         <br>
-        <input type="text" id="College" name="workshopTime" placeholder="Position" th:field="*{position}">
+        <input type="text" id="position" name="position" placeholder="Position" th:field="*{position}">
         <br>
         <label path="phonenumber">Phone Number</label>
-        <input name="workShopName" path="phonenumber" placeholder="Enter Phone Number.." th:field="*{phonenumber}"
+        <input name="phonenumber" path="phonenumber" placeholder="Enter Phone Number.." th:field="*{phonenumber}"
                type="text">
         <br>
         <input type="submit" value="Submit">
