@@ -19,4 +19,6 @@ public class Workshop
     private String workshoptime;
     @Column(nullable = false)
     private String workshoplocation;
+    @Column
+    private int workshopnum;
 }

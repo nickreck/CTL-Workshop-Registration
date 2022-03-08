@@ -78,6 +78,12 @@ h1
         <input name="phonenumber" path="phonenumber" placeholder="Enter Phone Number.." th:field="*{phonenumber}"
                type="text">
         <br>
+        <label path="workshopnum">Workshop:
+        </label>
+        <select th:field="*{workshopnum}">
+            <option value="0"> </option>
+            <option th:each="singular : ${list}" th:value="${singular.workshopnum}" th:text="${singular.id}"></option>
+        </select>
         <input type="submit" value="Submit">
     </form>
 </div>

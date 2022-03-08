@@ -28,8 +28,6 @@ public class AttendeeRepositoryTest {
         attendee.setCollege("Business");
         attendee.setPosition("Student");
         attendee.setPhonenumber("6784630569");
-        attendee.setWorkshopdate("2/25/22");
-        attendee.setWorkshopname("Learning to teach");
 
         Attendee saved = repo.save(attendee);
         Attendee exists = entityManager.find(Attendee.class, saved.getId());

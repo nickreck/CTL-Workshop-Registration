@@ -25,9 +25,5 @@ public class Attendee
     @Column(nullable = false)
     private String phonenumber;
     @Column(nullable = false)
-    private String workshopname;
-    @Column(nullable = false)
-    private String workshopdate;
-    @Column(nullable = false)
-    private String workshopnum;
+    private int workshopnum;
 }

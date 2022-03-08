@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class MasterController {
     @Autowired
@@ -13,6 +15,8 @@ public class MasterController {
     private AttendeeRepository attendeeRepo;
     @GetMapping("/registration")
     public String viewHomePage(Model model) {
+        List<Workshop> list = workshopRepo.findAll();
+        model.addAttribute("list", list);
         model.addAttribute("attendee", new Attendee());
         return "registration";
     }
