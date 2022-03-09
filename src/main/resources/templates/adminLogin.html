@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<style>
+input[type=text], select
+{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit]
+{
+  width: 100%;
+  background-color: #055e42;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover
+{
+  background-color: #208667;
+}
+
+div
+{
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+h1
+{
+    color: white;
+    font-family: verdana;
+    font-size: 200%;
+}
+</style>
+<body bgcolor="055e42">
+
+<h1>Admin Login</h1>
+
+<div>
+    <form th:action="@{/admin}" th:object="${login}" method="post">
+        <label path="id">Username</label>
+        <input name="username" path="username" placeholder="Enter Username.." th:field="*{username}"
+               type="text">
+
+        <label path="id">Password</label>
+        <input name="password" path="password" placeholder="Enter Password.." th:field="*{password}"
+               type="text">
+
+        <input type="submit" value="Login">
+    </form>
+</div>
+
+</body>
+</html>

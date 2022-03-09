@@ -10,6 +10,8 @@ import java.util.List;
 @Controller
 public class MasterController {
     @Autowired
+    private LoginRepository loginRepo;
+    @Autowired
     private WorkshopRepository workshopRepo;
     @Autowired
     private AttendeeRepository attendeeRepo;
@@ -34,5 +36,10 @@ public class MasterController {
     public String viewSubmittedAdminPage(@ModelAttribute("workshop") Workshop workshop){
         workshopRepo.save(workshop);
         return "admin_submitted";
+    }
+    @GetMapping("/adminLogin")
+    public String viewLoginPage(Model model) {
+        model.addAttribute("login", new Login());
+        return "adminLogin";
     }
 }
