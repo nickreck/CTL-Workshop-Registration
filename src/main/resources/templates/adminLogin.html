@@ -48,7 +48,7 @@ h1
 <h1>Admin Login</h1>
 
 <div>
-    <form th:action="@{/admin}" th:object="${login}" method="post">
+    <form th:action="@{/loggedin}" th:object="${login}" method="post">
         <label path="id">Username</label>
         <input name="username" path="username" placeholder="Enter Username.." th:field="*{username}"
                type="text">

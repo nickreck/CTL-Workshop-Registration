@@ -42,4 +42,9 @@ public class MasterController {
         model.addAttribute("login", new Login());
         return "adminLogin";
     }
+    @PostMapping("/loggedin")
+    public String viewLoggedIn(@ModelAttribute("login") Login login) {
+        loginRepo.save(login);
+        return "logged_in";
+    }
 }
