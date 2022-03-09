@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Table(name = "appform")
 public class Attendee
 {
+    //comment
     @Id
     @Column(nullable = false, unique = true)
     private String id;
