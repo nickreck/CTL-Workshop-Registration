@@ -42,10 +42,22 @@ h1
     font-family: verdana;
     font-size: 200%;
 }
+
+p
+{
+    color: white;
+    font-family: sans-serif;
+    font-size: 110%
+}
 </style>
 <body bgcolor="055e42">
 
+<img src="https://tinyurl.com/2p85mrtp" alt="Georgia College Logo" style="width:125px;height:125px;">
+
 <h1>Event Registration Form</h1>
+
+<p>Please use this form to register for the upcoming session with the Center for Teaching and Learning.
+    You will only be able to register for one session at a time.</p>
 
 <div>
     <form th:action="@{/registrationsubmitted}" method="post"
