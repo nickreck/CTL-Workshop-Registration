@@ -4,11 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
 @Controller
 public class MasterController {
+
+    @Autowired
+    private LoginRepository loginRepo;
     @Autowired
     private WorkshopRepository workshopRepo;
     @Autowired
@@ -38,5 +43,20 @@ public class MasterController {
     public String viewSubmittedAdminPage(@ModelAttribute("workshop") Workshop workshop){
         workshopRepo.save(workshop);
         return "admin_submitted";
+    }
+    @GetMapping("/adminLogin")
+    public String viewLoginPage(Model model) {
+        model.addAttribute("login", new Login());
+        return "adminLogin";
+    }
+    @PostMapping("/loggedin")
+    public String viewLoggedIn(@ModelAttribute("login") Login login) {
+        List<Login> list2 = loginRepo.findAll();
+        for (Login i:list2) {
+            if(login.checkLogin(i.getUsername(),i.getPassword())){
+                return "redirect:admin";
+            }
+        }
+        return "adminLogin";
     }
 }
