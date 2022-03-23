@@ -13,6 +13,10 @@ public class MasterController {
     private WorkshopRepository workshopRepo;
     @Autowired
     private AttendeeRepository attendeeRepo;
+    @GetMapping("/home")
+    public String viewHomePage(){
+        return "home";
+    }
     @GetMapping("/registration")
     public String viewHomePage(Model model) {
         List<Workshop> list = workshopRepo.findAll();
