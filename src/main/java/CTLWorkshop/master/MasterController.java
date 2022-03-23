@@ -4,11 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
 @Controller
 public class MasterController {
+
     @Autowired
     private LoginRepository loginRepo;
     @Autowired
@@ -44,7 +47,12 @@ public class MasterController {
     }
     @PostMapping("/loggedin")
     public String viewLoggedIn(@ModelAttribute("login") Login login) {
-        loginRepo.save(login);
-        return "logged_in";
+        List<Login> list2 = loginRepo.findAll();
+        for (Login i:list2) {
+            if(login.checkLogin(i.getUsername(),i.getPassword())){
+                return "redirect:admin";
+            }
+        }
+        return "adminLogin";
     }
 }

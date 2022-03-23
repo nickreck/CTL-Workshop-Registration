@@ -1,8 +1,8 @@
 package CTLWorkshop.master;
 
 import lombok.Data;
-
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -14,4 +14,8 @@ public class Login
     private String username;
     @Column(nullable = false)
     private String password;
+
+    public Boolean checkLogin(String u, String p){
+        return u.equals(username) && p.equals(password);
+    }
 }
