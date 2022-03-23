@@ -18,7 +18,7 @@ public class MasterController {
         return "home";
     }
     @GetMapping("/registration")
-    public String viewHomePage(Model model) {
+    public String viewRegistrationPage(Model model) {
         List<Workshop> list = workshopRepo.findAll();
         model.addAttribute("list", list);
         model.addAttribute("attendee", new Attendee());
