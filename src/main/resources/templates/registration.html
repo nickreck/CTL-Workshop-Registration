@@ -3,18 +3,40 @@
 <style>
 input[type=text], select
 {
-  width: 100%;
+  width: 50%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
-  border: 1px solid #ccc;
+  border: 1px solid #055e42;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=email], select
+{
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #055e42;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=number], select
+{
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #055e42;
   border-radius: 4px;
   box-sizing: border-box;
 }
 
 input[type=submit]
 {
-  width: 100%;
+  width: 50%;
   background-color: #055e42;
   color: white;
   padding: 14px 20px;
@@ -31,13 +53,17 @@ input[type=submit]:hover
 
 div
 {
+  width: 600px;
+  height: 700px;
   border-radius: 5px;
-  background-color: #f2f2f2;
+  background-color: white;
   padding: 20px;
+  margin: auto;
 }
 
 h1
 {
+    text-align: center;
     color: white;
     font-family: verdana;
     font-size: 200%;
@@ -45,50 +71,66 @@ h1
 
 p
 {
+    text-align: center;
     color: white;
     font-family: sans-serif;
     font-size: 110%
 }
+img
+        {
+            vertical-align: top;
+        }
+span
+        {
+            text-align: center;
+            color: black;
+            font-family: sans-serif;
+            font-size: 110%
+        }
 </style>
+<head>
+<Title>Event Registration Form</Title>
+</head>
+
 <body bgcolor="055e42">
 
-<img src="https://tinyurl.com/2p85mrtp" alt="Georgia College Logo" style="width:125px;height:125px;">
 
-<h1>Event Registration Form</h1>
+<Title><center>Event Registration Form</center></Title>
+<img src="https://tinyurl.com/2p85mrtp" alt="Georgia College Logo" style="width:125px;height:125px;">
+<h1>
+        CTL Workshop Registration
+</h1>
 
 <p>Please use this form to register for the upcoming session with the Center for Teaching and Learning.
     You will only be able to register for one session at a time.</p>
 
 <div>
+    <center>
+        <span>Registration Form</span>
     <form th:action="@{/registrationsubmitted}" method="post"
           th:object="${attendee}">
-        <label for="firstname">First Name</label>
         <input type="text" id="firstname" name="firstname" placeholder="First Name" th:field="*{firstname}">
-
-        <label for="lastname">Last Name</label>
+        <br>
         <br>
         <input type="text" id="lastname" name="lastname" placeholder="Last Name" th:field="*{lastname}">
         <br>
         <br>
-
-        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Email" th:field="*{id}">
         <br>
-        <input type="text" id="email" name="email" placeholder="Email" th:field="*{id}">
         <br>
-        <label for="college">College</label>
 
         <input type="text" id="college" name="college" placeholder="College" th:field="*{college}">
-        <label for="department">Department</label>
+        <br>
         <br>
         <input type="text" id="department" name="department" placeholder="Department" th:field="*{department}">
         <br>
-        <label for="position">Position</label>
         <br>
         <input type="text" id="position" name="position" placeholder="Position" th:field="*{position}">
         <br>
-        <label path="phonenumber">Phone Number</label>
+        <br>
         <input name="phonenumber" path="phonenumber" placeholder="Phone Number" th:field="*{phonenumber}"
-               type="text">
+               type="number">
+        <br>
         <br>
         <label path="workshopnum">Workshop:
         </label>
@@ -98,6 +140,7 @@ p
         </select>
         <input type="submit" value="Submit">
     </form>
+    </center>
 </div>
 
 </body>
