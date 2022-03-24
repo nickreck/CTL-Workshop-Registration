@@ -59,4 +59,19 @@ public class MasterController {
         }
         return "adminLogin";
     }
+    @GetMapping("/attendance")
+    public String viewAttendance(Model model) {
+        List<Workshop> list = workshopRepo.findAll();
+        model.addAttribute("workshoplist", list);
+        int workshopnum = 0;
+        model.addAttribute("workshop", new Workshop());
+        return "attendance";
+    }
+    @PostMapping("/attendancesubmitted")
+    public String viewAttendanceSubmitted(@ModelAttribute("workshop") Workshop workshop, Model model) {
+        List<Attendee> list = attendeeRepo.findByWorkshopnum(workshop.getWorkshopnum());
+        model.addAttribute("attendance", list);
+        System.out.println(list);
+        return "attendance_submitted";
+    }
 }
