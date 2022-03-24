@@ -19,7 +19,7 @@ public class MasterController {
     @Autowired
     private AttendeeRepository attendeeRepo;
     @GetMapping("/home")
-    public String viewHomePage(){
+    public String viewHomePage() {
         return "home";
     }
     @GetMapping("/registration")
