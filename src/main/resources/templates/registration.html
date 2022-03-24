@@ -114,6 +114,14 @@ span
 <br>
         <form th:action="@{/registrationsubmitted}" method="post"
           th:object="${attendee}">
+            <label path="workshopnum">Workshop:
+            </label>
+            <select th:field="*{workshopnum}">
+                <option value="0"> </option>
+                <option th:each="singular : ${list}" th:value="${singular.workshopnum}" th:text="${singular.id + ' | ' + singular.workshopdate + ' | ' + singular.workshoptime}"></option>
+            </select>
+            <br>
+            <br>
         <input type="text" id="firstname" name="firstname" placeholder="First Name" th:field="*{firstname}">
         <br>
         <br>
@@ -137,12 +145,6 @@ span
                type="number">
         <br>
         <br>
-        <label path="workshopnum">Workshop:
-        </label>
-        <select th:field="*{workshopnum}">
-            <option value="0"> </option>
-            <option th:each="singular : ${list}" th:value="${singular.workshopnum}" th:text="${singular.id}"></option>
-        </select>
         <input type="submit" value="Submit">
     </form>
     </center>
