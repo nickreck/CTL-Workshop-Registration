@@ -7,19 +7,14 @@
 <style>
 input[type=submit]
 {
-  background-color: #055E42;
-  border: none;
-  color: white;
-  padding: 14px 20px;
+  width: 50%;
+  padding: 12px 20px;
   margin: 8px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
   display: inline-block;
-  font-size: 50px;
-  width: 100%;
+  border: 1px solid #055e42;
+  border-radius: 4px;
+  box-sizing: border-box;
+
 }
 
 input[type=submit]:hover
@@ -34,19 +29,16 @@ h1
     font-size: 300%;
 }
 
-body
-{
-    background-image:url('https://www.facebook.com/ctlgcsu/photos/a.177895349373206/879740805855320/');
-}
 div
 {
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    padding: 20px;
+    text-align: center;
+    color: white;
+    font-family: verdana;
+    font-size: 200%;
 }
 </style>
 </head>
-<body bgcolor = "white">
+<body bgcolor="055e42">
 <h1 style = "text-align:center;"> CTL Workshop - Admin Home Page</h1>
 <div class ="col-md-12 text-center">
 
@@ -56,7 +48,7 @@ div
     <form method = "GET" th:action="@{/admin}">
         <input type = "submit" value = "Edit CTL Workshop"/>
     </form>
-    <form method = "GET" th:action="@{/admin}">
+    <form method = "GET" th:action="@{/attendance }">
         <input type = "submit" value = "Record Attendance"/>
     </form>
 

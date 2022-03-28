@@ -54,7 +54,7 @@ public class MasterController {
         List<Login> list2 = loginRepo.findAll();
         for (Login i:list2) {
             if(login.checkLogin(i.getUsername(),i.getPassword())){
-                return "redirect:admin";
+                return "redirect:home";
             }
         }
         return "adminLogin";
