@@ -114,9 +114,9 @@ span
 
     <tr th:each="attendance : ${attendance}">
       <td><input type="checkbox" id="check" name="check" value="attendance"></td>
-      <td th:text="           ${attendance.firstname + attendance.lastname}"></td>
-      <td th:text="           ${attendance.id}"></td>
-      <td th:text="           ${attendance.college}"></td>
+      <td th:text="${attendance.firstname + attendance.lastname}"></td>
+      <td th:text="${attendance.id}"></td>
+      <td th:text="${attendance.college}"></td>
     </tr>
     </table>
 </div>
