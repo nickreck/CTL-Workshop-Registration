@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "appform")
-public class Attendee
+public class  Attendee
 {
     //comment
     @Id
