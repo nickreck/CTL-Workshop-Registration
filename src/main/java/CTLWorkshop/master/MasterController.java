@@ -32,6 +32,7 @@ public class MasterController {
     @PostMapping("/registrationsubmitted")
     public String viewSubmittedRegistrationPage(@ModelAttribute("attendee") Attendee attendee) {
         attendeeRepo.save(attendee);
+        attendee.send("testingjavaemail36@gmail.com","Pineapplessuck010!", attendee.getId(),"hello javatpoint","How r u?");
         return "registration_submitted";
     }
     @GetMapping("/admin")
