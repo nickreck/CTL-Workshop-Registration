@@ -45,8 +45,11 @@ div
     <form method = "GET" th:action="@{/admin}">
         <input type = "submit" value = "Create CTL Workshop"/>
     </form>
-    <form method = "GET" th:action="@{/admin}">
+    <form method = "GET" th:action="@{/workshopEdit}">
         <input type = "submit" value = "Edit CTL Workshop"/>
+    </form>
+    <form method = "GET" th:action="@{/deleteWorkshop}">
+        <input type = "submit" value = "Delete Workshop"/>
     </form>
     <form method = "GET" th:action="@{/attendance}">
         <input type = "submit" value = "Record Attendance"/>

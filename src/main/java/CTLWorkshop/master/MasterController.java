@@ -74,4 +74,17 @@ public class MasterController {
         System.out.println(list);
         return "attendance_submitted";
     }
+    @GetMapping("/deleteWorkshop")
+    public String viewDeletePage(Model model) {
+        List<Workshop> list = workshopRepo.findAll();
+        model.addAttribute("list", list);
+        model.addAttribute("attendee", new Attendee());
+        return "deleteWorkshop";
+    }
+    @PostMapping("/deleteworkshop_submitted")
+    public String deleteworkshop_submitted(@ModelAttribute("workshop") Workshop workshop, Model model) {
+        workshopRepo.delete(workshop);
+        return "attendance_submitted";
+    }
+
 }

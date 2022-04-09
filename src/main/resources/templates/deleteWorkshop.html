@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name = "viewport" content = "width=device-width, initial-scale = 1" charset="UTF-8">
+    <title>Delete Workshop Page</title>
+
+    <style>
+input[type=text], select
+{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit]
+{
+  width: 100%;
+  background-color: #055e42;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover
+{
+  background-color: #208667;
+}
+
+div
+{
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+h1
+{
+    color: white;
+    font-family: verdana;
+    font-size: 200%;
+}
+</style>
+<body bgcolor="055e42">
+
+<img src="https://tinyurl.com/2p85mrtp" alt="Georgia College Logo" style="width:125px;height:125px;">
+
+<h1><center>Delete Workshop Form</center></h1>
+
+<div>
+    <form th:action="@{/deleteworkshop_submitted}" method="post"
+          th:object="${workshop}">
+        <label path="workshopnum">Workshop:
+        </label>
+        <select th:field="*{workshopnum}" id="selectworkshop">
+            <option th:value="0" value="0">All workshops</option>
+            <option th:each="singular : ${workshoplist}" th:value="${singular.workshopnum}"th:text="${singular.id + ' | ' + singular.workshopdate + ' | ' + singular.workshoptime}"></option>
+        </select>
+        <input type="submit" value="Submit">
+    </form>
+
+
+
+    <!--<form th:action="@{/adminsubmitted}" th:object="${workshop}" method="post">
+        <label path="id">Workshop ID</label>
+        <br>
+        <input type="text" path="id" name="id" placeholder="Enter Workshop ID.." th:field="*{id}">
+        <br>
+
+        <label path="id">Type: "Delete Workshop"</label>
+        <input name="workShopName" path="id" placeholder="Delete Workshop" 
+               type="text">
+
+        <input type="submit" value="Delete Workshop">
+    </form>-->
+</div>
+
+</body>
+</html>
