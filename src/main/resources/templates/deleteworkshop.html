@@ -60,7 +60,7 @@ h1
         </label>
         <select th:field="*{workshopnum}" id="selectworkshop">
             <option th:value="0" value="0">All workshops</option>
-            <option th:each="singular : ${workshoplist}" th:value="${singular.workshopnum}"th:text="${singular.id + ' | ' + singular.workshopdate + ' | ' + singular.workshoptime}"></option>
+            <option th:each="singular : ${list}" th:value="${singular.workshopnum}"th:text="${singular.id + ' | ' + singular.workshopdate + ' | ' + singular.workshoptime}"></option>
         </select>
         <input type="submit" value="Submit">
     </form>

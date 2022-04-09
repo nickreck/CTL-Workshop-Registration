@@ -63,27 +63,30 @@ public class MasterController {
     public String viewAttendance(Model model) {
         List<Workshop> list = workshopRepo.findAll();
         model.addAttribute("workshoplist", list);
-        int workshopnum = 0;
         model.addAttribute("workshop", new Workshop());
         return "attendance";
     }
     @PostMapping("/attendancesubmitted")
     public String viewAttendanceSubmitted(@ModelAttribute("workshop") Workshop workshop, Model model) {
-        List<Attendee> list = attendeeRepo.findByWorkshopnum(workshop.getWorkshopnum());
+        List<Attendee> list;
+        if(workshop.getWorkshopnum() == 0)
+            list = attendeeRepo.findAll();
+        else
+            list = attendeeRepo.findByWorkshopnum(workshop.getWorkshopnum());
         model.addAttribute("attendance", list);
-        System.out.println(list);
         return "attendance_submitted";
     }
-    @GetMapping("/deleteWorkshop")
+    @GetMapping("/deleteworkshop")
     public String viewDeletePage(Model model) {
         List<Workshop> list = workshopRepo.findAll();
         model.addAttribute("list", list);
-        model.addAttribute("attendee", new Attendee());
+        model.addAttribute("workshop", new Workshop());
         return "deleteWorkshop";
     }
     @PostMapping("/deleteworkshop_submitted")
-    public String deleteworkshop_submitted(@ModelAttribute("workshop") Workshop workshop, Model model) {
-        workshopRepo.delete(workshop);
+    public String deleteworkshop_submitted(@ModelAttribute("workshop") Workshop workshop) {
+        List<Workshop> list = workshopRepo.findByWorkshopnum(workshop.getWorkshopnum());
+        workshopRepo.delete(list.get(0));
         return "attendance_submitted";
     }
 
