@@ -162,20 +162,20 @@ span
         <path class="a" d="M196.086,70.629H195.3V62.9h.786Z" transform="translate(45.75 -62.638)"></path>
         <path class="a" d="M200.706,70.66h-.786V63.586H197.3V62.8h6.026v.786h-2.62Z" transform="translate(46.37 -62.669)"></path>
         <path class="a" d="M206.068,70.629h-.786V67.354L202.4,62.9h1.048l2.358,3.668,2.358-3.668h1.048l-2.882,4.454v3.275Z" transform="translate(47.951 -62.638)"></path>
-    </g></svg></a>
+      </g></svg></a>
 
 </h1>
 <div>
-<form th:action="@{/attendancecollege}" method="post"
-      th:object="${workshop}">
-  <label path="workshopnum">Workshop:
-  </label>
-  <select th:field="*{workshopnum}" id="selectworkshop">
-    <option th:value="0" value="0">All workshops</option>
-    <option th:each="singular : ${workshoplist}" th:value="${singular.workshopnum}"th:text="${singular.id + ' | ' + singular.workshopdate + ' | ' + singular.workshoptime}"></option>
-  </select>
-  <input type="submit" value="Submit">
-</form>
+  <form th:action="@{/attendancedepartment}" method="post"
+        th:object="${attendee}">
+    <label path="college">College:
+    </label>
+    <select th:field="*{college}">
+      <option th:value="0" value="0">All colleges</option>
+      <option th:each="singular : ${attendance}" th:value="${singular}"th:text="${singular}"></option>
+    </select>
+    <input type="submit" value="Submit">
+  </form>
 </div>
 </body>
 </html>

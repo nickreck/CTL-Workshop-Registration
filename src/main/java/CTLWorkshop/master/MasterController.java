@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -18,6 +19,7 @@ public class MasterController {
     private WorkshopRepository workshopRepo;
     @Autowired
     private AttendeeRepository attendeeRepo;
+    private List<Attendee> dynamicList;
     @GetMapping("/home")
     public String viewHomePage() {
         return "home";
@@ -64,15 +66,58 @@ public class MasterController {
     public String viewAttendance(Model model) {
         List<Workshop> list = workshopRepo.findAll();
         model.addAttribute("workshoplist", list);
-        int workshopnum = 0;
         model.addAttribute("workshop", new Workshop());
         return "attendance";
     }
-    @PostMapping("/attendancesubmitted")
-    public String viewAttendanceSubmitted(@ModelAttribute("workshop") Workshop workshop, Model model) {
-        List<Attendee> list = attendeeRepo.findByWorkshopnum(workshop.getWorkshopnum());
-        model.addAttribute("attendance", list);
-        System.out.println(list);
-        return "attendance_submitted";
+    @PostMapping("/attendancecollege")
+    public String viewAttendanceCollege(@ModelAttribute("workshop") Workshop workshop, Model model) {
+        dynamicList = attendeeRepo.findByWorkshopnum(workshop.getWorkshopnum());
+        List<String> colleges = new ArrayList<>();
+        boolean val = false;
+        for(int i = 0; i < dynamicList.size(); i++) {
+            for (int j = 0; j < colleges.size(); j++) {
+                if (dynamicList.get(i).getCollege().equalsIgnoreCase(colleges.get(j))) {
+                    val = true;
+                }
+            }
+            if(!val)
+                colleges.add(dynamicList.get(i).getCollege());
+        }
+        model.addAttribute("attendance", colleges);
+        model.addAttribute("attendee", new Attendee());
+        return "attendancecollege";
+    }
+    @PostMapping("/attendancedepartment")
+    public String viewAttendanceDepartment(@ModelAttribute("attendee") Attendee attendee, Model model) {
+        List<String> departments = new ArrayList<>();
+        boolean val = false;
+        for(int i = 0; i < dynamicList.size(); i++) {
+            if(!(dynamicList.get(i).getCollege().equalsIgnoreCase(attendee.getCollege()))) {
+                dynamicList.remove(i);
+            }
+        }
+        for(int i = 0; i < dynamicList.size(); i++) {
+            for (int j = 0; j < departments.size(); j++) {
+                if (dynamicList.get(i).getDepartment().equalsIgnoreCase(departments.get(j))) {
+                    val = true;
+                }
+            }
+            if(!val)
+                departments.add(dynamicList.get(i).getDepartment());
+        }
+        model.addAttribute("attendance", departments);
+        model.addAttribute("attendee", new Attendee());
+        return "attendancedepartment";
+    }
+    @PostMapping("/attendancedisplay")
+    public String viewAttendanceDisplay(@ModelAttribute("attendee") Attendee attendee, Model model) {
+        for(int i = 0; i < dynamicList.size(); i++) {
+            if(!(dynamicList.get(i).getDepartment().equalsIgnoreCase(attendee.getDepartment()))) {
+                dynamicList.remove(i);
+            }
+        }
+        model.addAttribute("attendance", dynamicList);
+        System.out.println(dynamicList);
+        return "attendancedisplay";
     }
 }
