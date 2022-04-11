@@ -37,7 +37,7 @@ input[type=number], select
 input[type=submit]
 {
   width: 50%;
-  background-color: #055e42;
+  background-color: #036;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -48,13 +48,13 @@ input[type=submit]
 
 input[type=submit]:hover
 {
-  background-color: #208667;
+  background-color: #046;
 }
 
 div
 {
   width: 600px;
-  height: 700px;
+  background-size: cover;
   border-radius: 5px;
   background-color: white;
   padding: 20px;
@@ -92,7 +92,7 @@ span
     <Title>Event Registration Form</Title>
 </head>
 
-<body bgcolor="055e42">
+<body bgcolor="005028">
 
 
 <Title><center>Event Registration Form</center></Title>
@@ -131,8 +131,13 @@ span
             <input type="email" id="email" name="email" placeholder="Email" th:field="*{id}">
             <br>
             <br>
-
-            <input type="text" id="college" name="college" placeholder="College" th:field="*{college}">
+            <select th:field="*{college}">
+                <option value="">Select college</option>
+                <option value="J. Whitney Bunting College of Business">J. Whitney Bunting College of Business</option>
+                <option value="John H. Lounsbury College of Education">John H. Lounsbury College of Education</option>
+                <option value="College of Health Sciences">College of Health Sciences</option>
+                <option value="College of Arts & Sciences">College of Arts & Sciences</option>
+            </select>
             <br>
             <br>
             <input type="text" id="department" name="department" placeholder="Department" th:field="*{department}">
@@ -141,7 +146,7 @@ span
             <input type="text" id="position" name="position" placeholder="Position" th:field="*{position}">
             <br>
             <br>
-            <input name="phonenumber" path="phonenumber" placeholder="Phone Number" minlength="10" maxlength="10" th:field="*{phonenumber}"
+            <input name="phonenumber" path="phonenumber" placeholder="Phone Number" th:field="*{phonenumber}"
                    type="number">
             <br>
             <br>

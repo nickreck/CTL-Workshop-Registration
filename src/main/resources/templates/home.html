@@ -114,18 +114,17 @@ div
 </h1>
 <h1> CTL Workshop - Admin Home Page</h1>
 <div class ="col-md-12 text-center">
+
     <form method = "GET" th:action="@{/admin}">
-        <input type = "submit" value = "Create CTL Workshop"/>
+        <input type = "submit" value = "Create CTL Workshop" style="font-size : 20px;"/>
     </form>
     <form method = "GET" th:action="@{/workshopedit}">
-        <input type = "submit" value = "Edit CTL Workshop"/>
-    </form>
-    <form method = "GET" th:action="@{/deleteworkshop}">
-        <input type = "submit" value = "Delete Workshop"/>
+        <input type = "submit" value = "Edit CTL Workshop" style="font-size : 20px;"/>
     </form>
     <form method = "GET" th:action="@{/attendance}">
-        <input type = "submit" value = "Record Attendance"/>
+        <input type = "submit" value = "Record Attendance" style="font-size : 20px;"/>
     </form>
+
 </div>
 </body>
 </html>
