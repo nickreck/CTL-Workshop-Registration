@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name = "viewport" content = "width=device-width, initial-scale = 1" charset="UTF-8">
+    <title>Workshop Edit Page</title>
+    <style>
+input[type=text], select
+{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+input[type=submit]
+{
+  width: 100%;
+  background-color: #055e42;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+input[type=submit]:hover
+{
+  background-color: #208667;
+}
+div
+{
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+h1
+{
+    color: white;
+    font-family: verdana;
+    font-size: 200%;
+}
+</style>
+<body bgcolor="055e42">
+<img src="https://tinyurl.com/2p85mrtp" alt="Georgia College Logo" style="width:125px;height:125px;">
+<h1><center>Edit Workshop Form</center></h1>
+<div>
+    <form th:action="@{/workshopedit_submitted}" method="post"
+          th:object="${workshop}">
+        <label path="workshopnum">Workshop:
+        </label>
+        <select th:field="*{workshopnum}">
+            <option value="0"> </option>
+            <option th:each="singular : ${list}" th:value="${singular.workshopnum}" th:text="${singular.id + ' | ' + singular.workshopdate + ' | ' + singular.workshoptime}"></option>
+        </select>
+    </form>
+    <form th:action="@{/adminsubmitted}" th:object="${workshop}" method="post">
+        <label path="id">Workshop Name</label>
+        <input name="workShopName" path="id" placeholder="Enter Workshop Name.." th:field="*{id}"
+               type="text">
+        <label path="workshopdate">Workshop Date</label>
+        <br>
+        <input name="workShopDate" path="workshopdate" placeholder="Enter Workshop Date.." th:field="*{workshopdate}" type="date">
+        <br>
+        <br>
+        <label path="workshoptime">Workshop Time</label>
+        <br>
+        <input type="text" path="workshoptime" name="workshopTime" placeholder="Enter Workshop Time.." th:field="*{workshoptime}">
+        <br>
+        <label path="workshoplocation">Workshop Location</label>
+        <input type="text" path="workshoplocation" name="workshopLocation" placeholder="Enter Workshop Location.." th:field="*{workshoplocation}">
+        <input type="submit" value="Submit">
+    </form>
+</div>
+</body>
+</html>
