@@ -23,17 +23,6 @@ input[type=email], select
   box-sizing: border-box;
 }
 
-input[type=number], select
-{
-  width: 50%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #055e42;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
 input[type=submit]
 {
   width: 50%;
@@ -114,10 +103,8 @@ span
         <br>
         <form th:action="@{/registrationsubmitted}" method="post"
               th:object="${attendee}">
-            <label path="workshopnum">Workshop:
-            </label>
             <select th:field="*{workshopnum}">
-                <option value="0"> </option>
+                <option value="0">Select Workshop</option>
                 <option th:each="singular : ${list}" th:value="${singular.workshopnum}" th:text="${singular.id + ' | ' + singular.workshopdate + ' | ' + singular.workshoptime}"></option>
             </select>
             <br>
@@ -132,11 +119,12 @@ span
             <br>
             <br>
             <select th:field="*{college}">
-                <option value="">Select college</option>
+                <option value="">Select College</option>
                 <option value="J. Whitney Bunting College of Business">J. Whitney Bunting College of Business</option>
                 <option value="John H. Lounsbury College of Education">John H. Lounsbury College of Education</option>
                 <option value="College of Health Sciences">College of Health Sciences</option>
                 <option value="College of Arts & Sciences">College of Arts & Sciences</option>
+                <option value="Other">Other</option>
             </select>
             <br>
             <br>
@@ -144,10 +132,6 @@ span
             <br>
             <br>
             <input type="text" id="position" name="position" placeholder="Position" th:field="*{position}">
-            <br>
-            <br>
-            <input name="phonenumber" path="phonenumber" placeholder="Phone Number" th:field="*{phonenumber}"
-                   type="number">
             <br>
             <br>
             <input type="submit" value="Submit">
