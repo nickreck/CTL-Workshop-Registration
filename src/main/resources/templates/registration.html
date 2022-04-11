@@ -122,13 +122,13 @@ span
             </select>
             <br>
             <br>
-            <input type="text" id="firstname" name="firstname" placeholder="First Name" th:field="*{firstname}">
+            <input type="text" id="firstname" name="firstname" placeholder="First Name" th:field="*{firstname}" pattern="[A-Za-z]">
             <br>
             <br>
-            <input type="text" id="lastname" name="lastname" placeholder="Last Name" th:field="*{lastname}">
+            <input type="text" id="lastname" name="lastname" placeholder="Last Name" th:field="*{lastname}" pattern="[A-Za-z]">
             <br>
             <br>
-            <input type="email" id="email" name="email" placeholder="Email" th:field="*{id}">
+            <input type="email" id="email" name="email" placeholder="Email" th:field="*{id}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
             <br>
             <br>
             <select th:field="*{college}">
@@ -140,14 +140,14 @@ span
             </select>
             <br>
             <br>
-            <input type="text" id="department" name="department" placeholder="Department" th:field="*{department}">
+            <input type="text" id="department" name="department" placeholder="Department" th:field="*{department}" pattern="[A-Za-z]">
             <br>
             <br>
-            <input type="text" id="position" name="position" placeholder="Position" th:field="*{position}">
+            <input type="text" id="position" name="position" placeholder="Position" th:field="*{position}" pattern="[A-Za-z]">
             <br>
             <br>
             <input name="phonenumber" path="phonenumber" placeholder="Phone Number" th:field="*{phonenumber}"
-                   type="number">
+                   type="number" pattern="[0-9]{10}">
             <br>
             <br>
             <input type="submit" value="Submit">

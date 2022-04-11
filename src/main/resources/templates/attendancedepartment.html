@@ -37,7 +37,7 @@ input[type=number], select
 input[type=submit]
 {
   width: 50%;
-  background-color: #055e42;
+  background-color: #036;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -48,14 +48,14 @@ input[type=submit]
 
 input[type=submit]:hover
 {
-  background-color: #208667;
+  background-color: #046;
 }
 
 div
 {
   text-align: center;
-  background-size: cover;
   width: 600px;
+  background-size: cover;
   border-radius: 5px;
   background-color: white;
   padding: 20px;
@@ -88,21 +88,15 @@ span
             font-family: sans-serif;
             font-size: 110%
         }
-
-th, td, tr {
-    padding: 15px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
 </style>
 <head>
-  <Title>Attendance</Title>
+  <Title>Attendance Form</Title>
 </head>
 
 <body bgcolor="005028">
 
 
-<Title><center>Event Registration Form</center></Title>
+<Title><center>Attendance Request</center></Title>
 
 
 <h1 class="masthead__logo">
@@ -171,26 +165,17 @@ th, td, tr {
       </g></svg></a>
 
 </h1>
-
-<br>
-
-<div th:if="${ not#lists.isEmpty(attendance)}">
-  <table>
-    <tr>
-      <th>Attendance</th>
-      <th>Name</th>
-      <th>E-mail</th>
-      <th>College</th>
-    </tr>
-
-    <tr th:each="attendance : ${attendance}">
-      <td><input type="checkbox" id="check" name="check" value="attendance" checked="true"></td>
-      <td th:text="${attendance.firstname + ' ' + attendance.lastname}"></td>
-      <td th:text="${attendance.id}"></td>
-      <td th:text="${attendance.college}"></td>
-    </tr>
-    </table>
+<div>
+  <form th:action="@{/attendancedisplay}" method="post"
+        th:object="${attendee}">
+    <label path="department">Department:
+    </label>
+    <select th:field="*{department}">
+      <option th:value="0" value="0">All departments</option>
+      <option th:each="singular : ${attendance}" th:value="${singular}"th:text="${singular}"></option>
+    </select>
+    <input type="submit" value="Submit">
+  </form>
 </div>
-
 </body>
 </html>

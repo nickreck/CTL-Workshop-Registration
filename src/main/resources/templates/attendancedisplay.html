@@ -1,19 +1,47 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta name = "viewport" content = "width=device-width, initial-scale = 1" charset="UTF-8">
-    <title>Admin Home Page</title>
-
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <style>
+input[type=text], select
+{
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #055e42;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=email], select
+{
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #055e42;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=number], select
+{
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #055e42;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
 input[type=submit]
 {
-  width: 600px;
-  height: 70px;
+  width: 50%;
   background-color: #036;
   color: white;
   padding: 14px 20px;
-  margin: 16px 0;
-  border: 1px solid white;
+  margin: 8px 0;
+  border: none;
   border-radius: 4px;
   cursor: pointer;
 }
@@ -23,29 +51,65 @@ input[type=submit]:hover
   background-color: #046;
 }
 
-h1
-{
-    text-align: center;
-    color: white;
-    font-family: verdana;
-    font-size: 300%;
-}
-
 div
 {
-    width: 600px;
+  text-align: center;
+  width: 800px;
   background-size: cover;
   border-radius: 5px;
   background-color: white;
   padding: 20px;
   margin: auto;
+}
+
+h1
+{
     text-align: center;
+    color: white;
     font-family: verdana;
-    font-size: 100%;
+    font-size: 200%;
+}
+
+p
+{
+    text-align: center;
+    color: white;
+    font-family: sans-serif;
+    font-size: 100%
+}
+img
+        {
+            vertical-align: top;
+        }
+span
+        {
+            text-align: center;
+            color: black;
+            font-family: sans-serif;
+            font-size: 110%
+        }
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+td, th {
+    height: 40px;
+}
+
+tr {
+  border-bottom: 1pt Solid Black;
 }
 </style>
+<head>
+    <Title>Attendance Form</Title>
 </head>
+
 <body bgcolor="005028">
+
+
+<Title><center>Attendance Request</center></Title>
+
+
 <h1 class="masthead__logo">
     <a href="/home">
         <svg xmlns="http://www.w3.org/2000/svg" width="270" height="89.524" viewBox="0 0 270 89.524">
@@ -112,20 +176,21 @@ div
             </g></svg></a>
 
 </h1>
-<h1> CTL Workshop - Admin Home Page</h1>
-<div class ="col-md-12 text-center">
-    <form method = "GET" th:action="@{/admin}">
-        <input type = "submit" value = "Create CTL Workshop"/>
-    </form>
-    <form method = "GET" th:action="@{/workshopedit}">
-        <input type = "submit" value = "Edit CTL Workshop"/>
-    </form>
-    <form method = "GET" th:action="@{/deleteworkshop}">
-        <input type = "submit" value = "Delete Workshop"/>
-    </form>
-    <form method = "GET" th:action="@{/attendance}">
-        <input type = "submit" value = "Record Attendance"/>
-    </form>
+<div th:if="${ not#lists.isEmpty(attendance)}">
+    <table>
+        <tr>
+            <th>Attendance</th>
+            <th>Name</th>
+            <th>E-mail</th>
+            <th>College</th>
+        </tr>
+        <tr th:each="attendance : ${attendance}">
+            <td><input type="checkbox" id="check" name="check" value="attendance" checked="true"></td>
+            <td th:text="${attendance.firstname + ' ' + attendance.lastname}"></td>
+            <td th:text="${attendance.id}"></td>
+            <td th:text="${attendance.college}"></td>
+        </tr>
+    </table>
 </div>
 </body>
 </html>
