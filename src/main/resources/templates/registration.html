@@ -37,7 +37,7 @@ input[type=number], select
 input[type=submit]
 {
   width: 50%;
-  background-color: #036;
+  background-color: #055e42;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -48,13 +48,13 @@ input[type=submit]
 
 input[type=submit]:hover
 {
-  background-color: #046;
+  background-color: #208667;
 }
 
 div
 {
   width: 600px;
-  background-size: cover;
+  height: 700px;
   border-radius: 5px;
   background-color: white;
   padding: 20px;
@@ -92,7 +92,7 @@ span
     <Title>Event Registration Form</Title>
 </head>
 
-<body bgcolor="005028">
+<body bgcolor="055e42">
 
 
 <Title><center>Event Registration Form</center></Title>
@@ -122,32 +122,27 @@ span
             </select>
             <br>
             <br>
-            <input type="text" id="firstname" name="firstname" placeholder="First Name" th:field="*{firstname}" pattern="[A-Za-z]">
+            <input type="text" id="firstname" name="firstname" placeholder="First Name" th:field="*{firstname}">
             <br>
             <br>
-            <input type="text" id="lastname" name="lastname" placeholder="Last Name" th:field="*{lastname}" pattern="[A-Za-z]">
+            <input type="text" id="lastname" name="lastname" placeholder="Last Name" th:field="*{lastname}">
             <br>
             <br>
-            <input type="email" id="email" name="email" placeholder="Email" th:field="*{id}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+            <input type="email" id="email" name="email" placeholder="Email" th:field="*{id}">
             <br>
             <br>
-            <select th:field="*{college}">
-                <option value="">Select college</option>
-                <option value="J. Whitney Bunting College of Business">J. Whitney Bunting College of Business</option>
-                <option value="John H. Lounsbury College of Education">John H. Lounsbury College of Education</option>
-                <option value="College of Health Sciences">College of Health Sciences</option>
-                <option value="College of Arts & Sciences">College of Arts & Sciences</option>
-            </select>
+
+            <input type="text" id="college" name="college" placeholder="College" th:field="*{college}">
             <br>
             <br>
-            <input type="text" id="department" name="department" placeholder="Department" th:field="*{department}" pattern="[A-Za-z]">
+            <input type="text" id="department" name="department" placeholder="Department" th:field="*{department}">
             <br>
             <br>
-            <input type="text" id="position" name="position" placeholder="Position" th:field="*{position}" pattern="[A-Za-z]">
+            <input type="text" id="position" name="position" placeholder="Position" th:field="*{position}">
             <br>
             <br>
             <input name="phonenumber" path="phonenumber" placeholder="Phone Number" th:field="*{phonenumber}"
-                   type="number" pattern="[0-9]{10}">
+                   type="number">
             <br>
             <br>
             <input type="submit" value="Submit">

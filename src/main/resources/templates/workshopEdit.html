@@ -3,7 +3,12 @@
 <head>
     <meta name = "viewport" content = "width=device-width, initial-scale = 1" charset="UTF-8">
     <title>Workshop Edit Page</title>
+<<<<<<< HEAD
     <style>
+=======
+
+<style>
+>>>>>>> cool
 input[type=text], select
 {
   width: 100%;
@@ -14,6 +19,10 @@ input[type=text], select
   border-radius: 4px;
   box-sizing: border-box;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> cool
 input[type=submit]
 {
   width: 100%;
@@ -25,16 +34,28 @@ input[type=submit]
   border-radius: 4px;
   cursor: pointer;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> cool
 input[type=submit]:hover
 {
   background-color: #208667;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> cool
 div
 {
   border-radius: 5px;
   background-color: #f2f2f2;
   padding: 20px;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> cool
 h1
 {
     color: white;
@@ -43,6 +64,7 @@ h1
 }
 </style>
 <body bgcolor="055e42">
+<<<<<<< HEAD
 <img src="https://tinyurl.com/2p85mrtp" alt="Georgia College Logo" style="width:125px;height:125px;">
 <h1><center>Edit Workshop Form</center></h1>
 <div>
@@ -59,19 +81,51 @@ h1
         <label path="id">Workshop Name</label>
         <input name="workShopName" path="id" placeholder="Enter Workshop Name.." th:field="*{id}"
                type="text">
+=======
+
+<img src="https://tinyurl.com/2p85mrtp" alt="Georgia College Logo" style="width:125px;height:125px;">
+
+<h1><center>Edit Workshop Form</center></h1>
+
+<div>
+    <form th:action="@{/adminsubmitted}" th:object="${workshop}" method="post">
+        <label path="id">Workshop ID</label>
+        <br>
+        <input type="text" path="id" name="id" placeholder="Enter Workshop ID.." th:field="*{id}">
+        <br>
+
+        <label path="id">Workshop Name</label>
+        <input name="workShopName" path="id" placeholder="Enter Workshop Name.." th:field="*{id}"
+               type="text">
+
+>>>>>>> cool
         <label path="workshopdate">Workshop Date</label>
         <br>
         <input name="workShopDate" path="workshopdate" placeholder="Enter Workshop Date.." th:field="*{workshopdate}" type="date">
         <br>
         <br>
+<<<<<<< HEAD
+=======
+
+>>>>>>> cool
         <label path="workshoptime">Workshop Time</label>
         <br>
         <input type="text" path="workshoptime" name="workshopTime" placeholder="Enter Workshop Time.." th:field="*{workshoptime}">
         <br>
         <label path="workshoplocation">Workshop Location</label>
+<<<<<<< HEAD
         <input type="text" path="workshoplocation" name="workshopLocation" placeholder="Enter Workshop Location.." th:field="*{workshoplocation}">
         <input type="submit" value="Submit">
     </form>
 </div>
+=======
+
+        <input type="text" path="workshoplocation" name="workshopLocation" placeholder="Enter Workshop Location.." th:field="*{workshoplocation}">
+
+        <input type="submit" value="Save Changes">
+    </form>
+</div>
+
+>>>>>>> cool
 </body>
 </html>
