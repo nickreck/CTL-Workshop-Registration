@@ -127,7 +127,7 @@ public class MasterController {
 
     @PostMapping("/attendancedisplay")
     public String viewAttendanceDisplay(@ModelAttribute("attendee") Attendee attendee, Model model) {
-        if(!attendee.getDepartment().equals("0")) {
+        if (!attendee.getDepartment().equals("0")) {
             for (int i = 0; i < dynamicList.size(); i++) {
                 if (!(dynamicList.get(i).getDepartment().equalsIgnoreCase(attendee.getDepartment()))) {
                     dynamicList.remove(i);
@@ -135,13 +135,55 @@ public class MasterController {
             }
         }
         model.addAttribute("attendance", dynamicList);
-//        model.addAttribute("attendee", new Attendee());
+        AttendeeCheckListWrapper checklist = new AttendeeCheckListWrapper();
+        for (int i = 0; i < dynamicList.size(); i++) {
+            checklist.addAttendee(dynamicList.get(i));
+        }
+        model.addAttribute("checklist", checklist);
         return "attendancedisplay";
     }
 
-//    @PostMapping("/attendancesubmission")
-//    public String viewAttendanceSubmission(@ModelAttribute("attendee") Attendee attendee, Model model) {
-//        model.addAttribute("attendance", dynamicList);
-//        return "attendancedisplay";
-//    }
+    @PostMapping("/attendancesubmission")
+    public String viewAttendanceSubmission(@ModelAttribute("checklist") AttendeeCheckListWrapper checklist, Model model) {
+        List<Attendee> tempList = checklist.getChecklist();
+        for (int i = 0; i < tempList.size(); i++) {
+            attendeeRepo.delete(dynamicList.get(i));
+            dynamicList.get(i).setAttendance(tempList.get(i).getAttendance());
+            if (dynamicList.get(i).getAttendance() == null)
+                dynamicList.get(i).setAttendance("No");
+            attendeeRepo.save(dynamicList.get(i));
+        }
+        return "attendancesubmission";
+    }
+
+    @GetMapping("/workshopedit")
+    public String viewEditPage(Model model) {
+        List<Workshop> list = workshopRepo.findAll();
+        model.addAttribute("list", list);
+        model.addAttribute("workshop", new Workshop());
+        return "workshopedit";
+    }
+
+    @PostMapping("/workshopedit_submitted")
+    public String workshopedit_submitted(@ModelAttribute("workshop") Workshop workshop) {
+        List<Workshop> list = workshopRepo.findByWorkshopnum(workshop.getWorkshopnum());
+        workshopRepo.delete(list.get(0));
+        workshopRepo.save(workshop);
+        return "workshopedit_submitted";
+    }
+
+    @GetMapping("/deleteworkshop")
+    public String viewDeletePage(Model model) {
+        List<Workshop> list = workshopRepo.findAll();
+        model.addAttribute("list", list);
+        model.addAttribute("workshop", new Workshop());
+        return "deleteworkshop";
+    }
+
+    @PostMapping("/deleteworkshop_submitted")
+    public String deleteworkshop_submitted(@ModelAttribute("workshop") Workshop workshop) {
+        List<Workshop> list = workshopRepo.findByWorkshopnum(workshop.getWorkshopnum());
+        workshopRepo.delete(list.get(0));
+        return "deleteworkshop_submitted";
+    }
 }

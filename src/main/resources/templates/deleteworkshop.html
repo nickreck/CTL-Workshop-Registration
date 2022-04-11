@@ -102,15 +102,10 @@ tr {
 
 </style>
 <head>
-    <Title>Attendance Form</Title>
+    <Title>Delete Workshop</Title>
 </head>
 
 <body bgcolor="005028">
-
-
-<Title><center>Attendance Request</center></Title>
-
-
 <h1 class="masthead__logo">
     <a href="/home">
         <svg xmlns="http://www.w3.org/2000/svg" width="270" height="89.524" viewBox="0 0 270 89.524">
@@ -261,26 +256,17 @@ tr {
     </a>
 
 </h1>
-<div th:if="${ not#lists.isEmpty(attendance)}">
-    <form th:action="@{/attendancesubmission}" method="post"
-          th:object="${checklist}">
-        <table>
-            <tr>
-                <th>Attendance</th>
-                <th>Name</th>
-                <th>E-mail</th>
-                <th>College</th>
-            </tr>
-            <tr th:each="attendee, itemStat : *{checklist}">
-                <td><input type="checkbox" id="check" name="check" value="Yes" checked="true"
-                           th:field="*{checklist[__${itemStat.index}__].attendance}"></td>
-                <td th:text="${attendee.firstname + ' ' + attendee.lastname}"></td>
-                <td th:text="${attendee.id}"></td>
-                <td th:text="${attendee.college}"></td>
-            </tr>
-        </table>
+<h1><center>Delete Workshop Form</center></h1>
+
+<div>
+    <form th:action="@{/deleteworkshop_submitted}" method="post"
+          th:object="${workshop}">
+        <label path="workshopnum">Workshop:
+        </label>
+        <select th:field="*{workshopnum}" id="selectworkshop">
+            <option th:value="0" value="0">All workshops</option>
+            <option th:each="singular : ${list}" th:value="${singular.workshopnum}"th:text="${singular.id + ' | ' + singular.workshopdate + ' | ' + singular.workshoptime}"></option>
+        </select>
         <input type="submit" value="Submit">
     </form>
 </div>
-</body>
-</html>
