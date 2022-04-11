@@ -264,7 +264,7 @@ tr {
         <label path="workshopnum">Workshop:
         </label>
         <select th:field="*{workshopnum}" id="selectworkshop">
-            <option th:value="0" value="0">All workshops</option>
+            <option th:value="0" value="0">Select Workshop</option>
             <option th:each="singular : ${list}" th:value="${singular.workshopnum}"th:text="${singular.id + ' | ' + singular.workshopdate + ' | ' + singular.workshoptime}"></option>
         </select>
         <input type="submit" value="Submit">
