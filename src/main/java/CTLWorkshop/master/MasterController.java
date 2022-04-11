@@ -32,7 +32,7 @@ public class MasterController {
     @PostMapping("/registrationsubmitted")
     public String viewSubmittedRegistrationPage(@ModelAttribute("attendee") Attendee attendee) {
         attendeeRepo.save(attendee);
-        attendee.send("testingjavaemail36@gmail.com","Pineapplessuck010!", "nicholas.reck@bobcats.gcsu.edu","Email testing","Sorry Nick Forgot to Change the address");
+        attendee.send("testingjavaemail36@gmail.com","Pineapplessuck010!", attendee.getId(),"CTL Workshop Registration", "Thank you, " + attendee.getFirstname() + " for registering for " + attendee.getWorkshopnum() + "You will receive a reminder 24 hrs before the workshop that will include the address/online link.");
         return "registration_submitted";
     }
     @GetMapping("/admin")
