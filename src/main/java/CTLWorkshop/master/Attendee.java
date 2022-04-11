@@ -29,6 +29,8 @@ public class  Attendee
     private String phonenumber;
     @Column(nullable = false)
     private int workshopnum;
+    @Column(nullable = true)
+    private String attendance;
 
     public static void send(String from,String password,String to,String sub,String msg){
         //Get properties object
