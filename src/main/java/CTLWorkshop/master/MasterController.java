@@ -139,6 +139,21 @@ public class MasterController {
         return "attendancedisplay";
     }
 
+    @GetMapping("/workshopedit")
+    public String viewEditPage(Model model) {
+        List<Workshop> list = workshopRepo.findAll();
+        model.addAttribute("list", list);
+        model.addAttribute("workshop", new Workshop());
+        return "workshopedit";
+    }
+    @PostMapping("/workshopedit_submitted")
+    public String workshopedit_submitted(@ModelAttribute("workshop") Workshop workshop) {
+        List<Workshop> list = workshopRepo.findByWorkshopnum(workshop.getWorkshopnum());
+        workshopRepo.delete(list.get(0));
+        workshopRepo.save(workshop);
+        return "workshopedit_submitted";
+    }
+
 //    @PostMapping("/attendancesubmission")
 //    public String viewAttendanceSubmission(@ModelAttribute("attendee") Attendee attendee, Model model) {
 //        model.addAttribute("attendance", dynamicList);
