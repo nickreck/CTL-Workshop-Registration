@@ -27,7 +27,7 @@ public class AttendeeRepositoryTest {
         attendee.setDepartment("Computer Science");
         attendee.setCollege("Business");
         attendee.setPosition("Student");
-        attendee.setPhonenumber("6784630569");
+//        attendee.setPhonenumber("6784630569");
 
         Attendee saved = repo.save(attendee);
         Attendee exists = entityManager.find(Attendee.class, saved.getId());

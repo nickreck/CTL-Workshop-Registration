@@ -26,8 +26,6 @@ public class  Attendee
     @Column(nullable = false)
     private String position;
     @Column(nullable = false)
-    private String phonenumber;
-    @Column(nullable = false)
     private int workshopnum;
     @Column(nullable = true)
     private String attendance;

@@ -135,11 +135,13 @@ public class MasterController {
             }
         }
         model.addAttribute("attendance", dynamicList);
-//        AttendeeCheckListWrapper checklist = new AttendeeCheckListWrapper();
-//        for (int i = 0; i < dynamicList.size(); i++) {
-//            checklist.addAttendee(dynamicList.get(i));
-//        }
-//        model.addAttribute("checklist", checklist);
+        AttendeeCheckListWrapper checklist = new AttendeeCheckListWrapper();
+        for (int i = 0; i < dynamicList.size(); i++) {
+            checklist.addAttendee(dynamicList.get(i));
+            if(checklist.getChecklist().get(i).getAttendance() == null)
+                checklist.getChecklist().get(i).setAttendance("Unmarked");
+        }
+        model.addAttribute("checklist", checklist);
         return "attendancedisplay";
     }
 
