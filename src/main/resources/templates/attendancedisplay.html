@@ -74,7 +74,7 @@ tr {
 
 <Title><center>Attendance Request</center></Title>
 
-
+<script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
 <h1 class="masthead__logo">
     <a href="/home">
         <svg xmlns="http://www.w3.org/2000/svg" width="270" height="89.524" viewBox="0 0 270 89.524">
@@ -228,22 +228,20 @@ tr {
 <div th:if="${ not#lists.isEmpty(attendance)}">
     <form th:action="@{/attendancesubmission}" method="post"
           th:object="${checklist}">
-        <table>
+        <table class="sortable">
             <tr>
-                <th>Attendance</th>
+                <th>Attended?</th>
                 <th>Name</th>
                 <th>E-mail</th>
                 <th>College</th>
             </tr>
             <tr th:each="attendee, itemStat : *{checklist}">
-                <td><input type="checkbox" id="check" name="check" value="Yes" checked="true"
-                           th:field="*{checklist[__${itemStat.index}__].attendance}"></td>
+                <td th:text="${attendee.attendance}"></td>
                 <td th:text="${attendee.firstname + ' ' + attendee.lastname}"></td>
                 <td th:text="${attendee.id}"></td>
                 <td th:text="${attendee.college}"></td>
             </tr>
         </table>
-        <input type="submit" value="Submit">
     </form>
 </div>
 </body>
