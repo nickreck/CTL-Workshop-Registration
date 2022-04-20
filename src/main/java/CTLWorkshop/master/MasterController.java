@@ -135,15 +135,38 @@ public class MasterController {
             }
         }
         model.addAttribute("attendance", dynamicList);
+//        AttendeeCheckListWrapper checklist = new AttendeeCheckListWrapper();
+//        for (int i = 0; i < dynamicList.size(); i++) {
+//            checklist.addAttendee(dynamicList.get(i));
+//        }
+//        model.addAttribute("checklist", checklist);
+        return "attendancedisplay";
+    }
+
+    @GetMapping("/editattendance")
+    public String viewEditAttendance(Model model) {
+        List<Workshop> list = workshopRepo.findAll();
+        model.addAttribute("workshoplist", list);
+        model.addAttribute("workshop", new Workshop());
+        return "editattendance";
+    }
+
+    @PostMapping("/attendancesubmission")
+    public String viewAttendanceSubmission(@ModelAttribute("workshop") Workshop workshop, Model model) {
+        if (workshop.getWorkshopnum() == 0)
+            dynamicList = attendeeRepo.findAll();
+        else
+            dynamicList = attendeeRepo.findByWorkshopnum(workshop.getWorkshopnum());
+        model.addAttribute("attendance", dynamicList);
         AttendeeCheckListWrapper checklist = new AttendeeCheckListWrapper();
         for (int i = 0; i < dynamicList.size(); i++) {
             checklist.addAttendee(dynamicList.get(i));
         }
         model.addAttribute("checklist", checklist);
-        return "attendancedisplay";
+        return "attendancesubmission";
     }
 
-    @PostMapping("/attendancesubmission")
+    @PostMapping("/attendancesubmitted")
     public String viewAttendanceSubmission(@ModelAttribute("checklist") AttendeeCheckListWrapper checklist, Model model) {
         List<Attendee> tempList = checklist.getChecklist();
         for (int i = 0; i < tempList.size(); i++) {
@@ -153,7 +176,7 @@ public class MasterController {
                 dynamicList.get(i).setAttendance("No");
             attendeeRepo.save(dynamicList.get(i));
         }
-        return "attendancesubmission";
+        return "attendancesubmitted";
     }
 
     @GetMapping("/workshopedit")
