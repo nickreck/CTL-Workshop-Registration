@@ -225,26 +225,8 @@ tr {
   </a>
 
 </h1>
-<div th:if="${ not#lists.isEmpty(attendance)}">
-  <form th:action="@{/attendancesubmitted}" method="post"
-        th:object="${checklist}">
-    <table>
-      <tr>
-        <th>Attendance</th>
-        <th>Name</th>
-        <th>E-mail</th>
-        <th>College</th>
-      </tr>
-      <tr th:each="attendee, itemStat : *{checklist}">
-                        <td><input type="checkbox" id="check" name="check" value="Yes" checked="true"
-                                   th:field="*{checklist[__${itemStat.index}__].attendance}"></td>
-        <td th:text="${attendee.firstname + ' ' + attendee.lastname}"></td>
-        <td th:text="${attendee.id}"></td>
-        <td th:text="${attendee.college}"></td>
-      </tr>
-    </table>
-            <input type="submit" value="Submit">
-  </form>
+<div>
+  <h2>Attendance successfully submitted </h2>
 </div>
 </body>
 </html>
