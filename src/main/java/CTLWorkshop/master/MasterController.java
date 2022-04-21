@@ -3,18 +3,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.*;
-import java.util.Properties;
 
 @Controller
 public class MasterController {
@@ -224,11 +219,15 @@ public class MasterController {
 
     public class Schedule extends Thread{
         public void run(){
-            for (Attendee a : emailList){
-                List<Workshop> w = workshopRepo.findByWorkshopnum(a.getWorkshopnum());
-                w.get(0).getWorkshopdate();
+                List<Workshop> w = workshopRepo.findAll();
+                String strDate = w.get(w.size() - 1).getWorkshopdate();
+                LocalDate date = LocalDate.parse(strDate);
+                int day = date.getDayOfMonth();
+                Month month = date.getMonth();
+                int year = date.getYear();
+
                 long currentMillis = System.currentTimeMillis();
-                long givenDateMillis = LocalDateTime.of(2020, 2, 14, 8, 0, 0)
+                long givenDateMillis = LocalDateTime.of(year, month, day, 16, 22, 0)
                         .atZone(ZoneId.systemDefault())
                         .toInstant()
                         .toEpochMilli();
@@ -237,6 +236,7 @@ public class MasterController {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                for (Attendee a : emailList) {
                 a.send("testingjavaemail36@gmail.com", "Pineapplessuck010!", a.getId(), "Email testing", "doing some thread testing");
             }
         }
