@@ -46,7 +46,9 @@ public class MasterController {
     @PostMapping("/registrationsubmitted")
     public String viewSubmittedRegistrationPage(@ModelAttribute("attendee") Attendee attendee) {
         attendeeRepo.save(attendee);
-        attendee.send("testingjavaemail36@gmail.com", "Pineapplessuck010!", attendee.getId(), "Email testing", "Love you Kyle <3 Jk faggot");
+        List<Workshop> listOfWorkshops = workshopRepo.findByWorkshopnum(attendee.getWorkshopnum());
+        Workshop workshop = listOfWorkshops.get(0);
+        attendee.send("testingjavaemail36@gmail.com", "Pineapplessuck010!", attendee.getId(), "CTL Workshop Registration", "Thank you " + attendee.getFirstname() + " for registering for an upcoming workshop:" + workshop.getId() + ". A reminder email will show up the morning of the workshop as well as a survey the day following the workshop.");
         return "registration_submitted";
     }
 
@@ -237,15 +239,21 @@ public class MasterController {
     public class Schedule extends Thread{
         public void run(){
                 List<Workshop> w = workshopRepo.findAll();
-                int workshopNum = w.get(w.size()-1).getWorkshopnum();
-                String strDate = w.get(w.size() - 1).getWorkshopdate();
+                Workshop workshop = w.get(w.size()-1);
+                int workshopNum = workshop.getWorkshopnum();
+                String strDate = workshop.getWorkshopdate();
+                String link = "<a href='https://gcsu.co1.qualtrics.com/jfe/form/SV_dj7uuqIEFS0rLTv' target='_blank'>https://gcsu.co1.qualtrics.com/jfe/form/SV_dj7uuqIEFS0rLTv</a>";
 
-                LocalDate date = LocalDate.parse(strDate);
+            LocalDate date = LocalDate.parse(strDate);
                 long currentMillis = System.currentTimeMillis();
                 long givenDateMillis = LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), 8, 0, 0)
                         .atZone(ZoneId.systemDefault())
                         .toInstant()
                         .toEpochMilli();
+            long givenDateMillis2 = LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth() + 1, 8, 0, 0)
+                    .atZone(ZoneId.systemDefault())
+                    .toInstant()
+                    .toEpochMilli();
                 try {
                     Thread.sleep(givenDateMillis - currentMillis);
                 } catch (InterruptedException e) {
@@ -253,8 +261,17 @@ public class MasterController {
                 }
                 emailList = attendeeRepo.findByWorkshopnum(workshopNum);
                 for (Attendee a : emailList) {
-                System.out.println("Attempting to send...");
-                a.send("testingjavaemail36@gmail.com", "Pineapplessuck010!", a.getId(), "Email testing", "Eyo if this worked we got the thread thing to work and this email was sent after waiting a set amount of time <3");
+                a.send("testingjavaemail36@gmail.com", "Pineapplessuck010!", a.getId(), "Workshop reminder", "Thanks again for signing up for today’s workshop, " + workshop.getId() + ". We're looking forward to working with you. As a reminder, the workshop will be taking place at" + workshop.getWorkshoptime() + " today at" + workshop.getWorkshoplocation());
+            }
+            try {
+                Thread.sleep(givenDateMillis2 - currentMillis);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            emailList = attendeeRepo.findByWorkshopnum(workshopNum);
+            for (Attendee a : emailList) {
+                a.send("testingjavaemail36@gmail.com", "Pineapplessuck010!", a.getId(), "Workshop Survey", "Thank you for attending our latest workshop! We are glad to have you.  We would like to gather feedback on our session and would like to ask that you complete a survey about the session.  If you would, please take a " +
+                        "moment to click on the link below and complete the survey. It will be completely anonymous and we will not be able to track who has completed the form. This will help us as we continue to improve our workshops and offerings at the GCSU Center for Teaching and Learning.\n" + link );
             }
         }
     }
