@@ -39,7 +39,7 @@ public class MasterController {
     @PostMapping("/registrationsubmitted")
     public String viewSubmittedRegistrationPage(@ModelAttribute("attendee") Attendee attendee) {
         attendeeRepo.save(attendee);
-        attendee.send("testingjavaemail36@gmail.com", "Pineapplessuck010!", "nicholas.reck@bobcats.gcsu.edu", "Email testing", "Sorry Nick Forgot to Change the address");
+        attendee.send("testingjavaemail36@gmail.com", "Pineapplessuck010!", attendee.getId(), "Email testing", "Love you Kyle <3 Jk faggot");
         return "registration_submitted";
     }
 
@@ -220,14 +220,12 @@ public class MasterController {
     public class Schedule extends Thread{
         public void run(){
                 List<Workshop> w = workshopRepo.findAll();
+                int workshopNum = w.get(w.size()-1).getWorkshopnum();
                 String strDate = w.get(w.size() - 1).getWorkshopdate();
-                LocalDate date = LocalDate.parse(strDate);
-                int day = date.getDayOfMonth();
-                Month month = date.getMonth();
-                int year = date.getYear();
 
+                LocalDate date = LocalDate.parse(strDate);
                 long currentMillis = System.currentTimeMillis();
-                long givenDateMillis = LocalDateTime.of(year, month, day, 16, 22, 0)
+                long givenDateMillis = LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), 8, 0, 0)
                         .atZone(ZoneId.systemDefault())
                         .toInstant()
                         .toEpochMilli();
@@ -236,8 +234,10 @@ public class MasterController {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                emailList = attendeeRepo.findByWorkshopnum(workshopNum);
                 for (Attendee a : emailList) {
-                a.send("testingjavaemail36@gmail.com", "Pineapplessuck010!", a.getId(), "Email testing", "doing some thread testing");
+                System.out.println("Attempting to send...");
+                a.send("testingjavaemail36@gmail.com", "Pineapplessuck010!", a.getId(), "Email testing", "Eyo if this worked we got the thread thing to work and this email was sent after waiting a set amount of time <3");
             }
         }
     }
