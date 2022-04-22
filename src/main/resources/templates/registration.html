@@ -23,21 +23,10 @@ input[type=email], select
   box-sizing: border-box;
 }
 
-input[type=number], select
-{
-  width: 50%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #055e42;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
 input[type=submit]
 {
   width: 50%;
-  background-color: #055e42;
+  background-color: #036;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -48,13 +37,13 @@ input[type=submit]
 
 input[type=submit]:hover
 {
-  background-color: #208667;
+  background-color: #046;
 }
 
 div
 {
   width: 600px;
-  height: 700px;
+  background-size: cover;
   border-radius: 5px;
   background-color: white;
   padding: 20px;
@@ -92,7 +81,7 @@ span
     <Title>Event Registration Form</Title>
 </head>
 
-<body bgcolor="055e42">
+<body bgcolor="005028">
 
 
 <Title><center>Event Registration Form</center></Title>
@@ -114,10 +103,8 @@ span
         <br>
         <form th:action="@{/registrationsubmitted}" method="post"
               th:object="${attendee}">
-            <label path="workshopnum">Workshop:
-            </label>
             <select th:field="*{workshopnum}">
-                <option value="0"> </option>
+                <option value="0">Select Workshop</option>
                 <option th:each="singular : ${list}" th:value="${singular.workshopnum}" th:text="${singular.id + ' | ' + singular.workshopdate + ' | ' + singular.workshoptime}"></option>
             </select>
             <br>
@@ -131,8 +118,14 @@ span
             <input type="email" id="email" name="email" placeholder="Email" th:field="*{id}">
             <br>
             <br>
-
-            <input type="text" id="college" name="college" placeholder="College" th:field="*{college}">
+            <select th:field="*{college}">
+                <option value="">Select College</option>
+                <option value="J. Whitney Bunting College of Business">J. Whitney Bunting College of Business</option>
+                <option value="John H. Lounsbury College of Education">John H. Lounsbury College of Education</option>
+                <option value="College of Health Sciences">College of Health Sciences</option>
+                <option value="College of Arts & Sciences">College of Arts & Sciences</option>
+                <option value="Other">Other</option>
+            </select>
             <br>
             <br>
             <input type="text" id="department" name="department" placeholder="Department" th:field="*{department}">

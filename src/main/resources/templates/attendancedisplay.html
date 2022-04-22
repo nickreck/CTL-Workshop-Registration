@@ -262,8 +262,7 @@ tr {
 
 </h1>
 <div th:if="${ not#lists.isEmpty(attendance)}">
-    <form th:action="@{/attendancesubmission}" method="post"
-          th:object="${checklist}">
+    <form th:object="${checklist}">
         <table class="sortable">
             <tr>
                 <th>Attended?</th>
@@ -278,6 +277,9 @@ tr {
                 <td th:text="${attendee.college}"></td>
             </tr>
         </table>
+    </form>
+    <form th:action="@{/attendanceexport}" method="post">
+        <input type="submit" value="Export to Excel">
     </form>
 </div>
 </body>

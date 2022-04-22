@@ -1,14 +1,21 @@
 package CTLWorkshop.master;
+
+import com.aspose.cells.Workbook;
+import com.aspose.cells.Worksheet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Controller
@@ -148,6 +155,16 @@ public class MasterController {
         }
         model.addAttribute("checklist", checklist);
         return "attendancedisplay";
+    }
+
+    @PostMapping("/attendanceexport")
+    public String viewExportAttendance(Model model) throws Exception {
+        Workbook book = new Workbook();
+        Worksheet sheet = book.getWorksheets().get(0);
+        sheet.getCells().importCustomObjects((Collection) dynamicList, new String[] { "Id", "Firstname", "Lastname", "Department", "College", "Position", "Workshopnum", "Attendance"}, true,0,0, dynamicList.size(), true, null, false);
+        String homeFolder = System.getProperty("user.home");
+        book.save(homeFolder + "/Documents/Output.xlsx");
+        return "redirect:home";
     }
 
     @GetMapping("/editattendance")
