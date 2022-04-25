@@ -1,14 +1,55 @@
 <!DOCTYPE html>
-<html xlmns:th="http://www.thymeleaf.org" xmlns:xlmns="http://www.w3.org/1999/xhtml">
-<style>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta name = "viewport" content = "width=device-width, initial-scale = 1" charset="UTF-8">
+  <title>Delete Workshop Submitted</title>
+  <style>
+input[type=submit]
+{
+width: 600px;
+height: 70px;
+background-color: #036;
+color: white;
+padding: 14px 20px;
+margin: 16px 0;
+border: 1px solid white;
+border-radius: 4px;
+cursor: pointer;
+}
+
+input[type=submit]:hover
+{
+background-color: #046;
+}
+
 div
 {
-  border-radius: 5px;
-  background-color: #f2f2f2;
-  padding: 20px;
+width: 600px;
+background-size: cover;
+border-radius: 5px;
+background-color: white;
+padding: 20px;
+margin: auto;
+text-align: center;
+font-family: verdana;
+font-size: 100%;
+}
+h1
+{
+text-align: center;
+}
+h2
+{
+text-align: center;
+color: white;
+font-family: verdana;
+font-size: 200%;
 }
 </style>
 <body bgcolor="005028">
+<head>
+  <Title>Delete Workshop Submitted</Title>
+</head>
 <h1 class="masthead__logo">
   <a href="/home">
     <svg xmlns="http://www.w3.org/2000/svg" width="270" height="89.524" viewBox="0 0 270 89.524">
@@ -76,11 +117,14 @@ div
 
 </h1>
 
-<h3>Delete Workshop Submission</h3>
-
-<div>
-  <h2>Workshop successfully deleted </h2>
-
+<h2>Workshop Has Been Successfully Deleted </h2>
+<div class ="col-md-12 text-center">
+  <form method = "GET" th:action="@{/deleteworkshop}">
+    <input type = "submit" value = "Return to Delete Workshop" style="font-size : 20px;"/>
+  </form>
+  <form method = "GET" th:action="@{/home}">
+    <input type = "submit" value = "Return to Admin Home" style="font-size : 20px;"/>
+  </form>
 </div>
 
 </body>
