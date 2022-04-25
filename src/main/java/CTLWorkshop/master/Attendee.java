@@ -7,10 +7,12 @@ import javax.mail.*;
 import javax.mail.internet.*;
 @Data
 @Entity
+// Table name within schema
 @Table(name = "appform")
 public class  Attendee
 {
-    //comment
+    //The attendee object has several properties with all required information about a participant in a workshop
+    // id is the attendee's email
     @Id
     @Column(nullable = false, unique = true)
     private String id;
@@ -24,11 +26,13 @@ public class  Attendee
     private String college;
     @Column(nullable = false)
     private String position;
+    // workshopnum is used to connect the attendees to their workshop in the database
     @Column(nullable = false)
     private int workshopnum;
     @Column(nullable = true)
     private String attendance;
 
+    //
     public static void send(String from,String password,String to,String sub,String msg)
     {
         //Get properties object

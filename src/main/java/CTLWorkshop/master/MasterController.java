@@ -20,13 +20,15 @@ import java.util.List;
 @Controller
 public class MasterController
 {
-
+    // Autowired repository to hold objects from our database
     @Autowired
     private LoginRepository loginRepo;
     @Autowired
     private WorkshopRepository workshopRepo;
     @Autowired
     private AttendeeRepository attendeeRepo;
+
+    // These lists allow us to maintain objects throughout multiple HTTP routes
     private List<Attendee> dynamicList;
     private List<Attendee> emailList;
 
@@ -92,7 +94,7 @@ public class MasterController
         }
         return "adminLogin";
     }
-
+    // The following methods all work together to slowly narrow down as to what attendees the user wants to see
     @GetMapping("/attendance")
     public String viewAttendance(Model model)
     {
