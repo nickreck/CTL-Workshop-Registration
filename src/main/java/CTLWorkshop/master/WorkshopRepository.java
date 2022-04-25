@@ -6,6 +6,7 @@ import java.util.List;
 
 import java.util.List;
 
-public interface WorkshopRepository extends JpaRepository<Workshop, String> {
+public interface WorkshopRepository extends JpaRepository<Workshop, String>
+{
     List<Workshop> findByWorkshopnum(int workshopnum);
 }

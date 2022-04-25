@@ -12,14 +12,14 @@ import org.springframework.web.servlet.view.RedirectView;
 import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 @Controller
-public class MasterController {
+public class MasterController
+{
 
     @Autowired
     private LoginRepository loginRepo;
@@ -31,12 +31,14 @@ public class MasterController {
     private List<Attendee> emailList;
 
     @GetMapping("/home")
-    public String viewHomePage() {
+    public String viewHomePage()
+    {
         return "home";
     }
 
     @GetMapping("/registration")
-    public String viewRegistrationPage(Model model) {
+    public String viewRegistrationPage(Model model)
+    {
         List<Workshop> list = workshopRepo.findAll();
         model.addAttribute("list", list);
         model.addAttribute("attendee", new Attendee());
@@ -44,22 +46,25 @@ public class MasterController {
     }
 
     @PostMapping("/registrationsubmitted")
-    public String viewSubmittedRegistrationPage(@ModelAttribute("attendee") Attendee attendee) {
+    public String viewSubmittedRegistrationPage(@ModelAttribute("attendee") Attendee attendee)
+    {
         attendeeRepo.save(attendee);
         List<Workshop> listOfWorkshops = workshopRepo.findByWorkshopnum(attendee.getWorkshopnum());
         Workshop workshop = listOfWorkshops.get(0);
-        attendee.send("testingjavaemail36@gmail.com", "Pineapplessuck010!", attendee.getId(), "CTL Workshop Registration", "Thank you " + attendee.getFirstname() + " for registering for an upcoming workshop:" + workshop.getId() + ". A reminder email will show up the morning of the workshop as well as a survey the day following the workshop.");
+        attendee.send("testingjavaemail36@gmail.com", "Pineapplessuck010!", attendee.getId(), "CTL Workshop Registration", "Thank you " + attendee.getFirstname() + " for registering for an upcoming workshop: " + workshop.getId() + ". A reminder email will show up the morning of the workshop as well as a survey the day following the workshop.");
         return "registration_submitted";
     }
 
     @GetMapping("/admin")
-    public String viewAdminPage(Model model) {
+    public String viewAdminPage(Model model)
+    {
         model.addAttribute("workshop", new Workshop());
         return "admin";
     }
 
     @PostMapping("/adminsubmitted")
-    public String viewSubmittedAdminPage(@ModelAttribute("workshop") Workshop workshop) {
+    public String viewSubmittedAdminPage(@ModelAttribute("workshop") Workshop workshop)
+    {
         Schedule schedule = new Schedule();
         workshopRepo.save(workshop);
         emailList = attendeeRepo.findByWorkshopnum(workshop.getWorkshopnum());
@@ -68,16 +73,20 @@ public class MasterController {
     }
 
     @GetMapping("/adminLogin")
-    public String viewLoginPage(Model model) {
+    public String viewLoginPage(Model model)
+    {
         model.addAttribute("login", new Login());
         return "adminLogin";
     }
 
     @PostMapping("/loggedin")
-    public String viewLoggedIn(@ModelAttribute("login") Login login) {
+    public String viewLoggedIn(@ModelAttribute("login") Login login)
+    {
         List<Login> list2 = loginRepo.findAll();
-        for (Login i : list2) {
-            if (login.checkLogin(i.getUsername(), i.getPassword())) {
+        for (Login i : list2)
+        {
+            if (login.checkLogin(i.getUsername(), i.getPassword()))
+            {
                 return "redirect:home";
             }
         }
@@ -85,7 +94,8 @@ public class MasterController {
     }
 
     @GetMapping("/attendance")
-    public String viewAttendance(Model model) {
+    public String viewAttendance(Model model)
+    {
         List<Workshop> list = workshopRepo.findAll();
         model.addAttribute("workshoplist", list);
         model.addAttribute("workshop", new Workshop());
@@ -93,16 +103,20 @@ public class MasterController {
     }
 
     @PostMapping("/attendancecollege")
-    public String viewAttendanceCollege(@ModelAttribute("workshop") Workshop workshop, Model model) {
+    public String viewAttendanceCollege(@ModelAttribute("workshop") Workshop workshop, Model model)
+    {
         if (workshop.getWorkshopnum() == 0)
             dynamicList = attendeeRepo.findAll();
         else
             dynamicList = attendeeRepo.findByWorkshopnum(workshop.getWorkshopnum());
         List<String> colleges = new ArrayList<>();
         boolean val = false;
-        for (int i = 0; i < dynamicList.size(); i++) {
-            for (int j = 0; j < colleges.size(); j++) {
-                if (dynamicList.get(i).getCollege().equalsIgnoreCase(colleges.get(j))) {
+        for (int i = 0; i < dynamicList.size(); i++)
+        {
+            for (int j = 0; j < colleges.size(); j++)
+            {
+                if (dynamicList.get(i).getCollege().equalsIgnoreCase(colleges.get(j)))
+                {
                     val = true;
                 }
             }
@@ -115,19 +129,26 @@ public class MasterController {
     }
 
     @PostMapping("/attendancedepartment")
-    public String viewAttendanceDepartment(@ModelAttribute("attendee") Attendee attendee, Model model) {
+    public String viewAttendanceDepartment(@ModelAttribute("attendee") Attendee attendee, Model model)
+    {
         List<String> departments = new ArrayList<>();
         boolean val = false;
-        if (!attendee.getCollege().equals("0")) {
-            for (int i = 0; i < dynamicList.size(); i++) {
-                if (!(dynamicList.get(i).getCollege().equalsIgnoreCase(attendee.getCollege()))) {
+        if (!attendee.getCollege().equals("0"))
+        {
+            for (int i = 0; i < dynamicList.size(); i++)
+            {
+                if (!(dynamicList.get(i).getCollege().equalsIgnoreCase(attendee.getCollege())))
+                {
                     dynamicList.remove(i);
                 }
             }
         }
-        for (int i = 0; i < dynamicList.size(); i++) {
-            for (int j = 0; j < departments.size(); j++) {
-                if (dynamicList.get(i).getDepartment().equalsIgnoreCase(departments.get(j))) {
+        for (int i = 0; i < dynamicList.size(); i++)
+        {
+            for (int j = 0; j < departments.size(); j++)
+            {
+                if (dynamicList.get(i).getDepartment().equalsIgnoreCase(departments.get(j)))
+                {
                     val = true;
                 }
             }
@@ -141,8 +162,10 @@ public class MasterController {
 
     @PostMapping("/attendancedisplay")
     public String viewAttendanceDisplay(@ModelAttribute("attendee") Attendee attendee, Model model) {
-        if (!attendee.getDepartment().equals("0")) {
-            for (int i = 0; i < dynamicList.size(); i++) {
+        if (!attendee.getDepartment().equals("0"))
+        {
+            for (int i = 0; i < dynamicList.size(); i++)
+            {
                 if (!(dynamicList.get(i).getDepartment().equalsIgnoreCase(attendee.getDepartment()))) {
                     dynamicList.remove(i);
                 }
@@ -150,7 +173,8 @@ public class MasterController {
         }
         model.addAttribute("attendance", dynamicList);
         AttendeeCheckListWrapper checklist = new AttendeeCheckListWrapper();
-        for (int i = 0; i < dynamicList.size(); i++) {
+        for (int i = 0; i < dynamicList.size(); i++)
+        {
             checklist.addAttendee(dynamicList.get(i));
             if(checklist.getChecklist().get(i).getAttendance() == null)
                 checklist.getChecklist().get(i).setAttendance("Unmarked");
@@ -160,7 +184,8 @@ public class MasterController {
     }
 
     @PostMapping("/attendanceexport")
-    public String viewExportAttendance(Model model) throws Exception {
+    public String viewExportAttendance(Model model) throws Exception
+    {
         Workbook book = new Workbook();
         Worksheet sheet = book.getWorksheets().get(0);
         sheet.getCells().importCustomObjects((Collection) dynamicList, new String[] { "Id", "Firstname", "Lastname", "Department", "College", "Position", "Workshopnum", "Attendance"}, true,0,0, dynamicList.size(), true, null, false);
@@ -170,7 +195,8 @@ public class MasterController {
     }
 
     @GetMapping("/editattendance")
-    public String viewEditAttendance(Model model) {
+    public String viewEditAttendance(Model model)
+    {
         List<Workshop> list = workshopRepo.findAll();
         model.addAttribute("workshoplist", list);
         model.addAttribute("workshop", new Workshop());
@@ -178,14 +204,16 @@ public class MasterController {
     }
 
     @PostMapping("/attendancesubmission")
-    public String viewAttendanceSubmission(@ModelAttribute("workshop") Workshop workshop, Model model) {
+    public String viewAttendanceSubmission(@ModelAttribute("workshop") Workshop workshop, Model model)
+    {
         if (workshop.getWorkshopnum() == 0)
             dynamicList = attendeeRepo.findAll();
         else
             dynamicList = attendeeRepo.findByWorkshopnum(workshop.getWorkshopnum());
         model.addAttribute("attendance", dynamicList);
         AttendeeCheckListWrapper checklist = new AttendeeCheckListWrapper();
-        for (int i = 0; i < dynamicList.size(); i++) {
+        for (int i = 0; i < dynamicList.size(); i++)
+        {
             checklist.addAttendee(dynamicList.get(i));
         }
         model.addAttribute("checklist", checklist);
@@ -193,9 +221,11 @@ public class MasterController {
     }
 
     @PostMapping("/attendancesubmitted")
-    public String viewAttendanceSubmission(@ModelAttribute("checklist") AttendeeCheckListWrapper checklist, Model model) {
+    public String viewAttendanceSubmission(@ModelAttribute("checklist") AttendeeCheckListWrapper checklist, Model model)
+    {
         List<Attendee> tempList = checklist.getChecklist();
-        for (int i = 0; i < tempList.size(); i++) {
+        for (int i = 0; i < tempList.size(); i++)
+        {
             attendeeRepo.delete(dynamicList.get(i));
             dynamicList.get(i).setAttendance(tempList.get(i).getAttendance());
             if (dynamicList.get(i).getAttendance() == null)
@@ -206,7 +236,8 @@ public class MasterController {
     }
 
     @GetMapping("/workshopedit")
-    public String viewEditPage(Model model) {
+    public String viewEditPage(Model model)
+    {
         List<Workshop> list = workshopRepo.findAll();
         model.addAttribute("list", list);
         model.addAttribute("workshop", new Workshop());
@@ -214,7 +245,8 @@ public class MasterController {
     }
 
     @PostMapping("/workshopedit_submitted")
-    public String workshopedit_submitted(@ModelAttribute("workshop") Workshop workshop) {
+    public String workshopedit_submitted(@ModelAttribute("workshop") Workshop workshop)
+    {
         List<Workshop> list = workshopRepo.findByWorkshopnum(workshop.getWorkshopnum());
         workshopRepo.delete(list.get(0));
         workshopRepo.save(workshop);
@@ -222,7 +254,8 @@ public class MasterController {
     }
 
     @GetMapping("/deleteworkshop")
-    public String viewDeletePage(Model model) {
+    public String viewDeletePage(Model model)
+    {
         List<Workshop> list = workshopRepo.findAll();
         model.addAttribute("list", list);
         model.addAttribute("workshop", new Workshop());
@@ -230,19 +263,20 @@ public class MasterController {
     }
 
     @PostMapping("/deleteworkshop_submitted")
-    public String deleteworkshop_submitted(@ModelAttribute("workshop") Workshop workshop) {
+    public String deleteworkshop_submitted(@ModelAttribute("workshop") Workshop workshop)
+    {
         List<Workshop> list = workshopRepo.findByWorkshopnum(workshop.getWorkshopnum());
         workshopRepo.delete(list.get(0));
         return "deleteworkshop_submitted";
     }
 
     public class Schedule extends Thread{
-        public void run(){
+        public void run()
+        {
                 List<Workshop> w = workshopRepo.findAll();
                 Workshop workshop = w.get(w.size()-1);
                 int workshopNum = workshop.getWorkshopnum();
                 String strDate = workshop.getWorkshopdate();
-                String link = "<a href='https://gcsu.co1.qualtrics.com/jfe/form/SV_dj7uuqIEFS0rLTv' target='_blank'>https://gcsu.co1.qualtrics.com/jfe/form/SV_dj7uuqIEFS0rLTv</a>";
 
             LocalDate date = LocalDate.parse(strDate);
                 long currentMillis = System.currentTimeMillis();
@@ -254,24 +288,29 @@ public class MasterController {
                     .atZone(ZoneId.systemDefault())
                     .toInstant()
                     .toEpochMilli();
-                try {
+                try
+                {
                     Thread.sleep(givenDateMillis - currentMillis);
-                } catch (InterruptedException e) {
+                } catch (InterruptedException e)
+                {
                     e.printStackTrace();
                 }
                 emailList = attendeeRepo.findByWorkshopnum(workshopNum);
-                for (Attendee a : emailList) {
-                a.send("testingjavaemail36@gmail.com", "Pineapplessuck010!", a.getId(), "Workshop reminder", "Thanks again for signing up for today’s workshop, " + workshop.getId() + ". We're looking forward to working with you. As a reminder, the workshop will be taking place at" + workshop.getWorkshoptime() + " today at" + workshop.getWorkshoplocation());
+                for (Attendee a : emailList)
+                {
+                a.send("testingjavaemail36@gmail.com", "Pineapplessuck010!", a.getId(), "Workshop reminder", "Thanks again for signing up for today’s workshop, " + workshop.getId() + ". We're looking forward to working with you. As a reminder, the workshop will be taking place at " + workshop.getWorkshoptime() + " today at " + workshop.getWorkshoplocation());
             }
             try {
                 Thread.sleep(givenDateMillis2 - currentMillis);
-            } catch (InterruptedException e) {
+            } catch (InterruptedException e)
+            {
                 e.printStackTrace();
             }
             emailList = attendeeRepo.findByWorkshopnum(workshopNum);
-            for (Attendee a : emailList) {
+            for (Attendee a : emailList)
+            {
                 a.send("testingjavaemail36@gmail.com", "Pineapplessuck010!", a.getId(), "Workshop Survey", "Thank you for attending our latest workshop! We are glad to have you.  We would like to gather feedback on our session and would like to ask that you complete a survey about the session.  If you would, please take a " +
-                        "moment to click on the link below and complete the survey. It will be completely anonymous and we will not be able to track who has completed the form. This will help us as we continue to improve our workshops and offerings at the GCSU Center for Teaching and Learning.\n" + link );
+                        "moment to click on the link below and complete the survey. It will be completely anonymous and we will not be able to track who has completed the form. This will help us as we continue to improve our workshops and offerings at the GCSU Center for Teaching and Learning.\n https://gcsu.co1.qualtrics.com/jfe/form/SV_dj7uuqIEFS0rLTv ");
             }
         }
     }

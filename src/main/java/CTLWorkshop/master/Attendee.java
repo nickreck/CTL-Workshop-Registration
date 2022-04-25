@@ -5,7 +5,6 @@ import javax.persistence.*;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
-import javax.activation.*;
 @Data
 @Entity
 @Table(name = "appform")
@@ -30,7 +29,8 @@ public class  Attendee
     @Column(nullable = true)
     private String attendance;
 
-    public static void send(String from,String password,String to,String sub,String msg){
+    public static void send(String from,String password,String to,String sub,String msg)
+    {
         //Get properties object
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
@@ -41,8 +41,10 @@ public class  Attendee
         props.put("mail.smtp.port", "465");
         //get Session
         Session session = Session.getDefaultInstance(props,
-                new javax.mail.Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
+                new javax.mail.Authenticator()
+                {
+                    protected PasswordAuthentication getPasswordAuthentication()
+                    {
                         return new PasswordAuthentication(from,password);
                     }
                 });
@@ -55,7 +57,8 @@ public class  Attendee
             //send message
             Transport.send(message);
             System.out.println("message sent successfully");
-        } catch (MessagingException e) {throw new RuntimeException(e);}
+        }
+        catch (MessagingException e) {throw new RuntimeException(e);}
 
     }
 }
