@@ -22,8 +22,6 @@ public class MasterController
 {
     // Autowired repository to hold objects from our database
     @Autowired
-    private LoginRepository loginRepo;
-    @Autowired
     private WorkshopRepository workshopRepo;
     @Autowired
     private AttendeeRepository attendeeRepo;
@@ -32,7 +30,9 @@ public class MasterController
     private List<Attendee> dynamicList;
     private List<Attendee> emailList;
 
-    @GetMapping("/home")
+    private int historicAttendanceCount = 0;
+
+    @GetMapping("/")
     public String viewHomePage()
     {
         return "home";
@@ -50,11 +50,13 @@ public class MasterController
     @PostMapping("/registrationsubmitted")
     public String viewSubmittedRegistrationPage(@ModelAttribute("attendee") Attendee attendee)
     {
+        historicAttendanceCount++;
+        attendee.setId(String.valueOf(historicAttendanceCount));
         attendeeRepo.save(attendee);
         List<Workshop> listOfWorkshops = workshopRepo.findByWorkshopnum(attendee.getWorkshopnum());
         Workshop workshop = listOfWorkshops.get(0);
-        attendee.send("testingjavaemail36@gmail.com", "Pineapplessuck010!", attendee.getId(), "CTL Workshop Registration", "Thank you " + attendee.getFirstname() + " for registering for an upcoming workshop: " + workshop.getId() + ". A reminder email will show up the morning of the workshop as well as a survey the day following the workshop.");
-        return "registration_submitted";
+        attendee.send("testingjavaemail36@gmail.com", "Pineapplessuck010!", attendee.getEmail(), "CTL Workshop Registration", "Thank you " + attendee.getFirstname() + " for registering for an upcoming workshop: " + workshop.getId() + ". A reminder email will show up the morning of the workshop as well as a survey the day following the workshop.");
+        return "redirect:registration?success";
     }
 
     @GetMapping("/admin")
@@ -71,29 +73,15 @@ public class MasterController
         workshopRepo.save(workshop);
         emailList = attendeeRepo.findByWorkshopnum(workshop.getWorkshopnum());
         schedule.start();
-        return "admin_submitted";
+        return "redirect:?workshopcreatedsuccess";
     }
 
     @GetMapping("/adminLogin")
     public String viewLoginPage(Model model)
     {
-        model.addAttribute("login", new Login());
         return "adminLogin";
     }
 
-    @PostMapping("/loggedin")
-    public String viewLoggedIn(@ModelAttribute("login") Login login)
-    {
-        List<Login> list2 = loginRepo.findAll();
-        for (Login i : list2)
-        {
-            if (login.checkLogin(i.getUsername(), i.getPassword()))
-            {
-                return "redirect:home";
-            }
-        }
-        return "adminLogin";
-    }
     // The following methods all work together to slowly narrow down as to what attendees the user wants to see
     @GetMapping("/attendance")
     public String viewAttendance(Model model)
@@ -190,10 +178,10 @@ public class MasterController
     {
         Workbook book = new Workbook();
         Worksheet sheet = book.getWorksheets().get(0);
-        sheet.getCells().importCustomObjects((Collection) dynamicList, new String[] { "Id", "Firstname", "Lastname", "Department", "College", "Position", "Workshopnum", "Attendance"}, true,0,0, dynamicList.size(), true, null, false);
+        sheet.getCells().importCustomObjects((Collection) dynamicList, new String[] { "Email", "Firstname", "Lastname", "Department", "College", "Position", "Workshopnum", "Attendance"}, true,0,0, dynamicList.size(), true, null, false);
         String homeFolder = System.getProperty("user.home");
-        book.save(homeFolder + "/Documents/Output.xlsx");
-        return "redirect:home";
+        book.save(homeFolder + "/Desktop/Output.xlsx");
+        return "redirect:?attendanceexportsuccess";
     }
 
     @GetMapping("/editattendance")
@@ -234,7 +222,7 @@ public class MasterController
                 dynamicList.get(i).setAttendance("No");
             attendeeRepo.save(dynamicList.get(i));
         }
-        return "attendancesubmitted";
+        return "redirect:?attendancesubmittedsuccess";
     }
 
     @GetMapping("/workshopedit")
@@ -252,7 +240,7 @@ public class MasterController
         List<Workshop> list = workshopRepo.findByWorkshopnum(workshop.getWorkshopnum());
         workshopRepo.delete(list.get(0));
         workshopRepo.save(workshop);
-        return "workshopedit_submitted";
+        return "redirect:?workshopeditsuccess";
     }
 
     @GetMapping("/deleteworkshop")
@@ -269,7 +257,7 @@ public class MasterController
     {
         List<Workshop> list = workshopRepo.findByWorkshopnum(workshop.getWorkshopnum());
         workshopRepo.delete(list.get(0));
-        return "deleteworkshop_submitted";
+        return "redirect:?deletesuccess";
     }
 
     public class Schedule extends Thread{
@@ -300,7 +288,7 @@ public class MasterController
                 emailList = attendeeRepo.findByWorkshopnum(workshopNum);
                 for (Attendee a : emailList)
                 {
-                a.send("testingjavaemail36@gmail.com", "Pineapplessuck010!", a.getId(), "Workshop reminder", "Thanks again for signing up for today’s workshop, " + workshop.getId() + ". We're looking forward to working with you. As a reminder, the workshop will be taking place at " + workshop.getWorkshoptime() + " today at " + workshop.getWorkshoplocation());
+                a.send("testingjavaemail36@gmail.com", "Pineapplessuck010!", a.getEmail(), "Workshop reminder", "Thanks again for signing up for today’s workshop, " + workshop.getId() + ". We're looking forward to working with you. As a reminder, the workshop will be taking place at " + workshop.getWorkshoptime() + " today at " + workshop.getWorkshoplocation());
             }
             try {
                 Thread.sleep(givenDateMillis2 - currentMillis);
@@ -311,7 +299,7 @@ public class MasterController
             emailList = attendeeRepo.findByWorkshopnum(workshopNum);
             for (Attendee a : emailList)
             {
-                a.send("testingjavaemail36@gmail.com", "Pineapplessuck010!", a.getId(), "Workshop Survey", "Thank you for attending our latest workshop! We are glad to have you.  We would like to gather feedback on our session and would like to ask that you complete a survey about the session.  If you would, please take a " +
+                a.send("testingjavaemail36@gmail.com", "Pineapplessuck010!", a.getEmail(), "Workshop Survey", "Thank you for attending our latest workshop! We are glad to have you.  We would like to gather feedback on our session and would like to ask that you complete a survey about the session.  If you would, please take a " +
                         "moment to click on the link below and complete the survey. It will be completely anonymous and we will not be able to track who has completed the form. This will help us as we continue to improve our workshops and offerings at the GCSU Center for Teaching and Learning.\n https://gcsu.co1.qualtrics.com/jfe/form/SV_dj7uuqIEFS0rLTv ");
             }
         }

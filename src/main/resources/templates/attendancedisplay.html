@@ -71,7 +71,7 @@ tr {
 
 <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
 <h1 class="masthead__logo">
-    <a href="/home">
+    <a href="/">
         <svg xmlns="http://www.w3.org/2000/svg" width="270" height="89.524" viewBox="0 0 270 89.524">
             <defs>
                 <style>.a{fill:#fff;}</style>
@@ -232,13 +232,16 @@ tr {
             <tr th:each="attendee, itemStat : *{checklist}">
                 <td th:text="${attendee.attendance}"></td>
                 <td th:text="${attendee.firstname + ' ' + attendee.lastname}"></td>
-                <td th:text="${attendee.id}"></td>
+                <td th:text="${attendee.email}"></td>
                 <td th:text="${attendee.college}"></td>
             </tr>
         </table>
     </form>
     <form th:action="@{/attendanceexport}" method="post">
         <input type="submit" value="Export to Excel">
+    </form>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
     </form>
 </div>
 </body>

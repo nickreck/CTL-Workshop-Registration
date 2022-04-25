@@ -49,7 +49,7 @@ h1
 </style>
 <body bgcolor="005028">
 <h1 class="masthead__logo">
-    <a href="/home">
+    <a href="/">
         <svg xmlns="http://www.w3.org/2000/svg" width="270" height="89.524" viewBox="0 0 270 89.524">
             <defs>
                 <style>.a{fill:#fff;}</style>
@@ -120,24 +120,26 @@ h1
 <div>
     <form th:action="@{/adminsubmitted}" th:object="${workshop}" method="post">
         <label path="id">Workshop Name</label>
-        <input name="workShopName" path="id" placeholder="Enter Workshop Name.." th:field="*{id}"
-               type="text">
+        <input name="workShopName" path="id" placeholder="Enter Workshop Name.." th:field="*{id}" pattern="[A-Za-zÀ-ž\s-]{1,}" required="required" type="text">
 
         <label path="workshopdate">Workshop Date</label>
         <br>
-        <input name="workShopDate" path="workshopdate" placeholder="Enter Workshop Date.." th:field="*{workshopdate}" type="date">
+        <input name="workShopDate" path="workshopdate" placeholder="Enter Workshop Date.." th:field="*{workshopdate}" pattern="[A-Za-zÀ-ž0-9\s,-]{1,}" required="required" type="date">
         <br>
         <br>
 
         <label path="workshoptime">Workshop Time</label>
         <br>
-        <input type="text" path="workshoptime" name="workshopTime" placeholder="Enter Workshop Time.." th:field="*{workshoptime}">
+        <input type="text" path="workshoptime" name="workshopTime" placeholder="Enter Workshop Time.." th:field="*{workshoptime}" pattern="[0-9\s:]{1,}" required="required">
         <br>
         <label path="workshoplocation">Workshop Location</label>
 
-        <input type="text" path="workshoplocation" name="workshopLocation" placeholder="Enter Workshop Location.." th:field="*{workshoplocation}">
+        <input type="text" path="workshoplocation" name="workshopLocation" placeholder="Enter Workshop Location.." th:field="*{workshoplocation}" pattern="[A-Za-zÀ-ž\s-]{1,}" required="required">
 
         <input type="submit" value="Submit">
+    </form>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
     </form>
 </div>
 

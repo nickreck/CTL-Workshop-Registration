@@ -55,7 +55,7 @@ h1
 
 <body bgcolor="005028">
 <h1 class="masthead__logo">
-    <a href="/home">
+    <a href="/">
         <svg xmlns="http://www.w3.org/2000/svg" width="270" height="89.524" viewBox="0 0 270 89.524">
             <defs>
                 <style>.a{fill:#fff;}</style>
@@ -212,9 +212,11 @@ h1
         <label path="workshopnum">Workshop:
         </label>
         <select th:field="*{workshopnum}" id="selectworkshop">
-            <option th:value="0" value="0">Select Workshop</option>
             <option th:each="singular : ${list}" th:value="${singular.workshopnum}"th:text="${singular.id + ' | ' + singular.workshopdate + ' | ' + singular.workshoptime}"></option>
         </select>
         <input type="submit" value="Submit">
+    </form>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
     </form>
 </div>

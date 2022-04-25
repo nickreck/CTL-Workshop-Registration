@@ -5,6 +5,8 @@ import javax.persistence.*;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
+import javax.print.DocFlavor;
+
 @Data
 @Entity
 // Table name within schema
@@ -14,9 +16,11 @@ public class  Attendee
     //The attendee object has several properties with all required information about a participant in a workshop
     // id is the attendee's email
     @Id
-    @Column(nullable = false, unique = true)
-    private String id;
     @Column(nullable = false)
+    private String id;
+    @Column(nullable = false, unique = false)
+    private String email;
+    @Column(nullable = false, unique = false)
     private String firstname;
     @Column(nullable = false)
     private String lastname;

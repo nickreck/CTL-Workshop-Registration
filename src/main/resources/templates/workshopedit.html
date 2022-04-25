@@ -54,7 +54,7 @@ h1
 
 <body bgcolor="005028">
 <h1 class="masthead__logo">
-    <a href="/home">
+    <a href="/">
         <svg xmlns="http://www.w3.org/2000/svg" width="270" height="89.524" viewBox="0 0 270 89.524">
             <defs>
                 <style>.a{fill:#fff;}</style>
@@ -231,6 +231,9 @@ h1
         <label path="workshoplocation">Workshop Location:</label>
         <input type="text" path="workshoplocation" name="workshopLocation" placeholder="Enter Workshop Location.." th:field="*{workshoplocation}">
         <input type="submit" value="Submit">
+    </form>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
     </form>
 </div>
 </body>

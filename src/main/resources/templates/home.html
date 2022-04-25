@@ -47,7 +47,7 @@ div
 </head>
 <body bgcolor="005028">
 <h1 class="masthead__logo">
-    <a href="/home">
+    <a href="/">
         <svg xmlns="http://www.w3.org/2000/svg" width="270" height="89.524" viewBox="0 0 270 89.524">
             <defs>
                 <style>.a{fill:#fff;}</style>
@@ -113,8 +113,22 @@ div
 
 </h1>
 <h1> CTL Workshop - Admin Home Page</h1>
+<p th:if="${param.workshopcreatedsuccess}" class="alert alert-success">
+    Workshop created successfully!
+</p>
+<p th:if="${param.attendanceexportsuccess}" class="alert alert-success">
+    Attendance successfully exported to desktop!
+</p>
+<p th:if="${param.attendancesubmittedsuccess}" class="alert alert-success">
+    Attendance successfully submitted!
+</p>
+<p th:if="${param.workshopeditsuccess}" class="alert alert-success">
+    Workshop successfully edited!
+</p>
+<p th:if="${param.deletesuccess}" class="alert alert-success">
+    Workshop successfully deleted!
+</p>
 <div class ="col-md-12 text-center">
-
     <form method = "GET" th:action="@{/admin}">
         <input type = "submit" value = "Create CTL Workshop" style="font-size : 20px;"/>
     </form>
@@ -130,7 +144,9 @@ div
     <form method = "GET" th:action="@{/editattendance}">
         <input type = "submit" value = "Edit Attendance" style="font-size : 20px;"/>
     </form>
-
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+    </form>
 </div>
 </body>
 </html>
