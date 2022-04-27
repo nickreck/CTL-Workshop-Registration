@@ -54,6 +54,13 @@ h1
     font-family: verdana;
     font-size: 200%;
 }
+h2
+{
+    text-align: center;
+    color: white;
+    font-family: verdana;
+    font-size: 200%;
+}
 </style>
 <body bgcolor="005028">
 <h1 class="masthead__logo">
@@ -66,21 +73,14 @@ h1
 <p th:if="${param.logout}" class="alert alert-success">
     You have been logged out.
 </p>
-
 <div>
     <form th:action="@{/adminLogin}" method="post">
         <fieldset>
-            <div th:if="${param.error}" class="alert alert-error">
-                Invalid username and password.
-            </div>
-            <div th:if="${param.logout}" class="alert alert-success">
-                You have been logged out.
-            </div>
             <label path="id">Username</label>
             <input name="username" path="username" placeholder="Enter Username.." type="text" required="required">
 
             <label path="id">Password</label>
-            <input name="password" path="password" placeholder="Enter Password.." type="text" required="required" style="-webkit-text-security: star">
+            <input name="password" path="password" placeholder="Enter Password.." type="text" required="required" style="-webkit-text-security: circle">
 
             <input type="submit" value="Login">
         </fieldset>

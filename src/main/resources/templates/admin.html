@@ -129,11 +129,11 @@ h1
 
         <label path="workshoptime">Workshop Time</label>
         <br>
-        <input type="text" path="workshoptime" name="workshopTime" placeholder="Enter Workshop Time.." th:field="*{workshoptime}" pattern="[0-9\s:]{1,}" required="required">
+        <input type="text" path="workshoptime" name="workshopTime" placeholder="Enter Workshop Time.." th:field="*{workshoptime}" pattern="[A-za-z0-9\s:]{1,}" required="required">
         <br>
         <label path="workshoplocation">Workshop Location</label>
 
-        <input type="text" path="workshoplocation" name="workshopLocation" placeholder="Enter Workshop Location.." th:field="*{workshoplocation}" pattern="[A-Za-zÀ-ž\s-]{1,}" required="required">
+        <input type="text" path="workshoplocation" name="workshopLocation" placeholder="Enter Workshop Location.." th:field="*{workshoplocation}" pattern="[A-Za-zÀ-ž0-9\s-]{1,}" required="required">
 
         <input type="submit" value="Submit">
     </form>

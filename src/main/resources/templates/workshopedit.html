@@ -213,8 +213,8 @@ h1
             <option value="0"> </option>
             <option th:each="singular : ${list}" th:value="${singular.workshopnum}" th:text="${singular.id + ' | ' + singular.workshopdate + ' | ' + singular.workshoptime}"></option>
         </select>
-    </form>
-    <form th:action="@{/adminsubmitted}" th:object="${workshop}" method="post">
+        <br>
+        <br>
         <label path="id">Workshop Name</label>
         <input name="workShopName" path="id" placeholder="Enter Workshop Name.." th:field="*{id}"
                type="text">
