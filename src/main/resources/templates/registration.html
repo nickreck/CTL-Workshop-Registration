@@ -65,6 +65,13 @@ p
     font-family: sans-serif;
     font-size: 100%
 }
+h2
+{
+    text-align: center;
+    color: white;
+    font-family: sans-serif;
+    font-size: 100%
+}
 
 </style>
 <head>
@@ -93,9 +100,9 @@ p
         <br>
         <form th:action="@{/registrationsubmitted}" method="post"
               th:object="${attendee}">
-            <p th:if="${param.success}" class="alert alert-success">
+            <h2 th:if="${param.success}" class="alert alert-success">
                 You have been successfully registered and will receive an email shortly.
-            </p>
+            </h2>
             <select th:field="*{workshopnum}">
                 <option value="0">Select Workshop</option>
                 <option th:each="singular : ${list}" th:value="${singular.workshopnum}" th:text="${singular.id + ' | ' + singular.workshopdate + ' | ' + singular.workshoptime}"></option>

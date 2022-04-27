@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <style>
+<!--Edits the looks of the buttons on admin page-->
 input[type=text], select
 {
   width: 100%;
@@ -11,7 +12,7 @@ input[type=text], select
   border-radius: 4px;
   box-sizing: border-box;
 }
-
+<!--Edits the looks of the submit button on admin page-->
 input[type=submit]
 {
   width: 100%;
@@ -23,12 +24,12 @@ input[type=submit]
   border-radius: 4px;
   cursor: pointer;
 }
-
+<!--Changes color of submit button when it is hovered over-->
 input[type=submit]:hover
 {
   background-color: #046;
 }
-
+<!--Edits the white box in the background that contains all buttons-->
 div
 {
   width: 600px;
@@ -38,7 +39,7 @@ div
   padding: 20px;
   margin: auto;
 }
-
+<!--Edits the looks of the title at the top of the screen-->
 h1
 {
     text-align: center;
@@ -47,7 +48,9 @@ h1
     font-size: 200%;
 }
 </style>
+<!--Background color-->
 <body bgcolor="005028">
+<!--Very long code for the gc logo, We found it on the GC website and dont know how to slim it down.-->
 <h1 class="masthead__logo">
     <a href="/">
         <svg xmlns="http://www.w3.org/2000/svg" width="270" height="89.524" viewBox="0 0 270 89.524">
@@ -114,10 +117,11 @@ h1
             </g></svg></a>
 
 </h1>
-
+<!--Title in the middle of screen-->
 <h1><center>Workshop Creation Form</center></h1>
 
 <div>
+    <!--these buttons each take the input and store it in the specified object so that it can be sent to database, cannot be empty-->
     <form th:action="@{/adminsubmitted}" th:object="${workshop}" method="post">
         <label path="id">Workshop Name</label>
         <input name="workShopName" path="id" placeholder="Enter Workshop Name.." th:field="*{id}" pattern="[A-Za-zÀ-ž\s-]{1,}" required="required" type="text">
