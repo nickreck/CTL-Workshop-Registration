@@ -6,10 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
-
-import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -259,25 +255,34 @@ public class MasterController
         workshopRepo.delete(list.get(0));
         return "redirect:?deletesuccess";
     }
-
+    //email scheduling is done here
+    //email code is in Attendee.java
     public class Schedule extends Thread{
         public void run()
         {
+                //grabs list of workshops
                 List<Workshop> w = workshopRepo.findAll();
+                //grabs specific workshop
                 Workshop workshop = w.get(w.size()-1);
+                //gets workshop number
                 int workshopNum = workshop.getWorkshopnum();
+                //gets workshop date
                 String strDate = workshop.getWorkshopdate();
-
-            LocalDate date = LocalDate.parse(strDate);
+                //changes string date to local date
+                LocalDate date = LocalDate.parse(strDate);
+                //gets current time in ms
                 long currentMillis = System.currentTimeMillis();
-                long givenDateMillis = LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), 8, 0, 0)
+                //gets scheduled date ms
+                long givenDateMillis = LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), 16, 16, 0)
                         .atZone(ZoneId.systemDefault())
                         .toInstant()
                         .toEpochMilli();
-            long givenDateMillis2 = LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth() + 1, 8, 0, 0)
-                    .atZone(ZoneId.systemDefault())
-                    .toInstant()
-                    .toEpochMilli();
+                //gets day after scheduled date in ms
+                long givenDateMillis2 = LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), 16, 16, 0)
+                        .atZone(ZoneId.systemDefault())
+                        .toInstant()
+                        .toEpochMilli();
+                //sleeps thread until scheduled date
                 try
                 {
                     Thread.sleep(givenDateMillis - currentMillis);
@@ -285,23 +290,28 @@ public class MasterController
                 {
                     e.printStackTrace();
                 }
+                //pulls attendee list from database
                 emailList = attendeeRepo.findByWorkshopnum(workshopNum);
+                //sends out emails
                 for (Attendee a : emailList)
                 {
                 a.send("testingjavaemail36@gmail.com", "Pineapplessuck010!", a.getEmail(), "Workshop reminder", "Thanks again for signing up for today’s workshop, " + workshop.getId() + ". We're looking forward to working with you. As a reminder, the workshop will be taking place at " + workshop.getWorkshoptime() + " today at " + workshop.getWorkshoplocation());
-            }
-            try {
-                Thread.sleep(givenDateMillis2 - currentMillis);
-            } catch (InterruptedException e)
-            {
-                e.printStackTrace();
-            }
-            emailList = attendeeRepo.findByWorkshopnum(workshopNum);
-            for (Attendee a : emailList)
-            {
-                a.send("testingjavaemail36@gmail.com", "Pineapplessuck010!", a.getEmail(), "Workshop Survey", "Thank you for attending our latest workshop! We are glad to have you.  We would like to gather feedback on our session and would like to ask that you complete a survey about the session.  If you would, please take a " +
-                        "moment to click on the link below and complete the survey. It will be completely anonymous and we will not be able to track who has completed the form. This will help us as we continue to improve our workshops and offerings at the GCSU Center for Teaching and Learning.\n https://gcsu.co1.qualtrics.com/jfe/form/SV_dj7uuqIEFS0rLTv ");
-            }
+                }
+                //thread sleeps again
+                try {
+                    Thread.sleep(givenDateMillis2 - currentMillis);
+                } catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+                //pulls attendee list from database
+                emailList = attendeeRepo.findByWorkshopnum(workshopNum);
+                //sends out survey emails
+                for (Attendee a : emailList)
+                {
+                    a.send("testingjavaemail36@gmail.com", "Pineapplessuck010!", a.getEmail(), "Workshop Survey", "Thank you for attending our latest workshop! We are glad to have you.  We would like to gather feedback on our session and would like to ask that you complete a survey about the session.  If you would, please take a " +
+                            "moment to click on the link below and complete the survey. It will be completely anonymous and we will not be able to track who has completed the form. This will help us as we continue to improve our workshops and offerings at the GCSU Center for Teaching and Learning.\n https://gcsu.co1.qualtrics.com/jfe/form/SV_dj7uuqIEFS0rLTv ");
+                }
         }
     }
 }

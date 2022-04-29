@@ -5,7 +5,6 @@ import javax.persistence.*;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
-import javax.print.DocFlavor;
 
 @Data
 @Entity
@@ -36,7 +35,7 @@ public class  Attendee
     @Column(nullable = true)
     private String attendance;
 
-    //
+    //email code
     public static void send(String from,String password,String to,String sub,String msg)
     {
         //Get properties object
@@ -64,7 +63,6 @@ public class  Attendee
             message.setText(msg);
             //send message
             Transport.send(message);
-            System.out.println("message sent successfully");
         }
         catch (MessagingException e) {throw new RuntimeException(e);}
 
