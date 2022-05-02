@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <style>
+/*Edits the looks of the text boxes */
 input[type=text], select
 {
   width: 100%;
@@ -11,7 +12,7 @@ input[type=text], select
   border-radius: 4px;
   box-sizing: border-box;
 }
-
+/*Edits the looks of the Submit button */
 input[type=submit]
 {
   width: 50%;
@@ -23,12 +24,12 @@ input[type=submit]
   border-radius: 4px;
   cursor: pointer;
 }
-
+/*This creates a different color when you mouse over the submit */
 input[type=submit]:hover
 {
   background-color: #046;
 }
-
+/*This controls the white box in the background */
 div
 {
   width: 600px;
@@ -39,7 +40,7 @@ div
   margin: auto;
   text-align: center;
 }
-
+/*This edits the look of one of the headers */
 h1
 {
     text-align: center;
@@ -47,14 +48,8 @@ h1
     font-family: verdana;
     font-size: 200%;
 }
+/*Edits the looks of the "p" */
  p
-{
-    text-align: center;
-    color: white;
-    font-family: verdana;
-    font-size: 200%;
-}
-h2
 {
     text-align: center;
     color: white;
@@ -78,7 +73,7 @@ h2
         <fieldset>
             <label path="id">Username</label>
             <input name="username" path="username" placeholder="Enter Username.." type="text" required="required">
-
+            <!--Style allows for passwords to be hidden and show up as an object in this case we chose circle -->
             <label path="id">Password</label>
             <input name="password" path="password" placeholder="Enter Password.." type="text" required="required" style="-webkit-text-security: circle">
 

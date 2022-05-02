@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <style>
+/* This edits the looks of the input boxes*/
 input[type=text], select
 {
   width: 50%;
@@ -11,6 +12,19 @@ input[type=text], select
   border-radius: 4px;
   box-sizing: border-box;
 }
+/* This edits the looks of the date input */
+input[type=date], select
+{
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  text-align: left;
+}
+/*This edits the looks of the Submit button */
 input[type=submit]
 {
   width: 50%;
@@ -22,23 +36,23 @@ input[type=submit]
   border-radius: 4px;
   cursor: pointer;
 }
-
+/*This creates a different color when you mouse over the submit */
 input[type=submit]:hover
 {
   background-color: #046;
 }
-
+/*This controls the white box in the background */
 div
 {
   text-align: center;
-  width: 800px;
+  width: 600px;
   background-size: cover;
   border-radius: 5px;
   background-color: white;
   padding: 20px;
   margin: auto;
 }
-
+/*This edits the look of one of the headers */
 h1
 {
     text-align: center;
@@ -215,21 +229,21 @@ h1
         </select>
         <br>
         <br>
-        <label path="id">Workshop Name</label>
+        <label path="id">Workshop Name:</label>
         <input name="workShopName" path="id" placeholder="Enter Workshop Name.." th:field="*{id}"
-               type="text">
+               type="text" pattern="[A-Za-zÀ-ž\s-]{1,}" required="required">
         <br>
         <br>
         <label path="workshopdate">Workshop Date:</label>
-        <input name="workShopDate" path="workshopdate" placeholder="Enter Workshop Date.." th:field="*{workshopdate}" type="date">
+        <input name="workShopDate" path="workshopdate" placeholder="Enter Workshop Date.." th:field="*{workshopdate}" type="date" >
         <br>
         <br>
         <label path="workshoptime">Workshop Time:</label>
-        <input type="text" path="workshoptime" name="workshopTime" placeholder="Enter Workshop Time.." th:field="*{workshoptime}">
+        <input type="text" path="workshoptime" name="workshopTime" placeholder="Enter Workshop Time.." th:field="*{workshoptime}" pattern="[A-Za-zÀ-ž\s-]{1,}" required="required">
         <br>
         <br>
         <label path="workshoplocation">Workshop Location:</label>
-        <input type="text" path="workshoplocation" name="workshopLocation" placeholder="Enter Workshop Location.." th:field="*{workshoplocation}">
+        <input type="text" path="workshoplocation" name="workshopLocation" placeholder="Enter Workshop Location.." th:field="*{workshoplocation}" pattern="[A-Za-zÀ-ž\s-]{1,}" required="required">
         <input type="submit" value="Submit">
     </form>
     <form th:action="@{/logout}" method="post">

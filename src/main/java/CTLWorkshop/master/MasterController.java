@@ -152,7 +152,8 @@ public class MasterController
         {
             for (int i = 0; i < dynamicList.size(); i++)
             {
-                if (!(dynamicList.get(i).getDepartment().equalsIgnoreCase(attendee.getDepartment()))) {
+                if (!(dynamicList.get(i).getDepartment().equalsIgnoreCase(attendee.getDepartment())))
+                {
                     dynamicList.remove(i);
                 }
             }

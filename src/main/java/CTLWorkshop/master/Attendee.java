@@ -56,7 +56,8 @@ public class  Attendee
                     }
                 });
         //compose message
-        try {
+        try
+        {
             MimeMessage message = new MimeMessage(session);
             message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));
             message.setSubject(sub);
