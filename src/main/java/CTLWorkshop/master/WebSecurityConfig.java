@@ -25,6 +25,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
     protected void configure(AuthenticationManagerBuilder auth) throws Exception
     {
         auth.inMemoryAuthentication()
+                //username and password for login in are currently hard coded here with ".with user" = username and ".password" = password
                 .withUser("user1")
                 .password("password1")
                 .roles("ADMIN");
